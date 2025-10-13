@@ -1,14 +1,20 @@
-import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Theme } from '@radix-ui/themes'
 import { Header } from './header'
-import type { ThemeAppearance } from '@/types'
+import { useTheme } from '@/shared/hooks/use-theme'
 
 export function AppLayout() {
-  const [appearance, setAppearance] = useState<ThemeAppearance>('dark')
+  const { theme, setTheme } = useTheme()
+  const appearance =
+    theme === 'system'
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+      : theme
 
   const toggleTheme = () => {
-    setAppearance(prev => (prev === 'dark' ? 'light' : 'dark'))
+    const next = appearance === 'dark' ? 'light' : 'dark'
+    setTheme(next)
   }
 
   return (
@@ -19,7 +25,7 @@ export function AppLayout() {
       radius="large"
       scaling="105%"
     >
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen bg-background">
         <Header
           title="UI Playground"
           onThemeToggle={toggleTheme}

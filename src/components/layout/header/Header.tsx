@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Flex, Heading, IconButton } from '@radix-ui/themes'
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
+import { Flex, Heading } from '@radix-ui/themes'
+
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 interface HeaderProps {
   title?: string
@@ -14,7 +15,7 @@ export function Header({
   isDarkMode = false,
 }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/20 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <Flex
         justify="between"
         align="center"
@@ -28,13 +29,7 @@ export function Header({
 
         <Flex gap="3" align="center">
           {onThemeToggle && (
-            <IconButton
-              variant="ghost"
-              onClick={onThemeToggle}
-              aria-label="테마 전환"
-            >
-              {isDarkMode ? <SunIcon /> : <MoonIcon />}
-            </IconButton>
+            <ThemeToggle isDarkMode={isDarkMode} onToggle={onThemeToggle} />
           )}
         </Flex>
       </Flex>

@@ -28,9 +28,11 @@ src/
 │       └── hooks/              # blogs 도메인 hooks
 │
 ├── components/                 # 범용 UI 컴포넌트
+│   ├── ui/                     # 디자인 시스템 컴포넌트
+│   │   └── theme-toggle/       # 테마 토글 스위치
 │   └── layout/                 # 레이아웃 컴포넌트
 │       ├── header/
-│       ├── AppLayout.tsx
+│       ├── app-layout/
 │       └── index.ts
 │
 ├── shared/                     # 공통 유틸리티
@@ -67,8 +69,9 @@ views/blogs/
 
 #### 2. **components/** - 범용 UI
 
+- **ui/**: 디자인 시스템 컴포넌트 (ThemeToggle, Button 등)
+- **layout/**: 레이아웃 컴포넌트 (Header, Footer 등)
 - 도메인 무관한 재사용 가능한 컴포넌트
-- Button, Card 등 디자인 시스템
 - 다른 프로젝트에 복사해도 동작
 
 #### 3. **shared/** - 공통 유틸리티
@@ -136,12 +139,6 @@ pnpm typecheck
 
 ### 새 페이지 추가
 
-```bash
-# /about 페이지 추가
-mkdir src/views/about
-touch src/views/about/index.tsx
-```
-
 ```typescript
 // src/views/about/index.tsx
 export default function AboutPage() {
@@ -159,12 +156,6 @@ export default function AboutPage() {
 
 ### 동적 라우트 추가
 
-```bash
-# /users/:id 페이지
-mkdir -p "src/views/users/[id]"
-touch src/views/users/[id]/index.tsx
-```
-
 ```typescript
 // src/views/users/[id]/index.tsx
 import { useParams } from 'react-router-dom'
@@ -175,24 +166,6 @@ export default function UserDetailPage() {
 }
 ```
 
-### 컴포넌트 추가
-
-#### 도메인 컴포넌트 (특정 기능에서만 사용)
-
-```bash
-# blogs 도메인 컴포넌트
-touch src/views/blogs/components/BlogForm.tsx
-```
-
-#### 범용 컴포넌트 (여러 곳에서 사용)
-
-```bash
-# 범용 버튼 컴포넌트
-mkdir src/components/Button
-touch src/components/Button/Button.tsx
-touch src/components/Button/index.ts
-```
-
 ### Import Path Alias
 
 `@/`를 사용하여 깔끔하게 import:
@@ -201,6 +174,7 @@ touch src/components/Button/index.ts
 // ✅ Path alias 사용
 import { formatDate } from '@/shared/utils'
 import type { Blog } from '@/types/blog'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { Header } from '@/components/layout'
 
 // ✅ 상대 경로 (같은 도메인 내부)
@@ -214,7 +188,10 @@ import { useBlogs } from './hooks/use-blogs'
 
 ```
 다른 프로젝트에 복사해도 동작하나?
-├─ YES → components/
+├─ YES
+│  └─ 레이아웃 컴포넌트?
+│     ├─ YES → components/layout/
+│     └─ NO → components/ui/
 └─ NO
    └─ 특정 도메인에만 사용?
       ├─ YES → views/[domain]/components/
@@ -274,11 +251,17 @@ React 기능만 확장? (도메인 로직 없음)
 
 ## 📚 주요 컨벤션
 
+### 폴더명
+
+- **kebab-case** 사용 (예: `theme-toggle/`, `app-layout/`)
+- 동적 라우트: `[id]/`, `[slug]/` (Next.js 스타일)
+- URL 친화적이고 OS 호환성 좋음
+
 ### 파일명
 
-- 컴포넌트: `PascalCase.tsx` (예: `BlogCard.tsx`)
+- 컴포넌트: `PascalCase.tsx` (예: `BlogCard.tsx`, `ThemeToggle.tsx`)
 - 페이지: `index.tsx` (폴더명으로 구분)
-- Hooks: `use-*.ts` (예: `use-blogs.ts`)
+- Hooks: `kebab-case.ts` (예: `use-blogs.ts`, `use-theme.ts`)
 - Utils: `kebab-case.ts` (예: `format-date.ts`)
 - Types: `kebab-case.ts` (예: `blog.ts`)
 

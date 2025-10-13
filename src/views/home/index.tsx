@@ -9,12 +9,12 @@ export default function HomePage() {
         {/* Hero Section */}
         <Box>
           <Flex justify="center" mb="4">
-            <RocketIcon width="64" height="64" className="text-violet-500" />
+            <RocketIcon width="64" height="64" className="text-primary" />
           </Flex>
           <Heading size="9" mb="4">
             UI Playground
           </Heading>
-          <Text size="5" color="gray" className="max-w-2xl">
+          <Text size="5" className="max-w-2xl text-muted-foreground">
             React + TypeScript + Vite로 만든 모던 웹 애플리케이션입니다.
             <br />
             깔끔한 구조와 확장 가능한 아키텍처를 경험해보세요.
@@ -42,12 +42,14 @@ export default function HomePage() {
             {features.map(feature => (
               <Box
                 key={feature.title}
-                className="flex-1 min-w-[250px] p-6 border border-slate-200 dark:border-slate-800 rounded-lg"
+                className="flex-1 min-w-[250px] p-6 border border-border rounded-lg bg-card"
               >
-                <Heading size="4" mb="2">
+                <Heading size="4" mb="2" className="text-card-foreground">
                   {feature.title}
                 </Heading>
-                <Text color="gray">{feature.description}</Text>
+                <Text className="text-muted-foreground">
+                  {feature.description}
+                </Text>
               </Box>
             ))}
           </Flex>
