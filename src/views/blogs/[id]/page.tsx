@@ -10,7 +10,7 @@ import {
   Separator,
 } from '@radix-ui/themes'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
-import { useBlog } from '../hooks/use-blogs'
+import { useBlog } from '../_hooks/use-blogs'
 import { formatDate } from '@/shared/utils'
 
 export default function BlogDetailPage() {

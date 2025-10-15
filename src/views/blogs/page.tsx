@@ -1,6 +1,6 @@
 import { Container, Flex, Heading, Text, Box } from '@radix-ui/themes'
-import { BlogCard } from './components/BlogCard'
-import { useBlogs } from './hooks/use-blogs'
+import { BlogCard } from './_components/BlogCard'
+import { useBlogs } from './_hooks/use-blogs'
 
 export default function BlogListPage() {
   const { blogs, isLoading } = useBlogs()

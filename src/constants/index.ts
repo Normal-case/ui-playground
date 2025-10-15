@@ -11,4 +11,6 @@ export const ROUTES = {
   HOME: '/',
   ABOUT: '/about',
   SETTINGS: '/settings',
+  FEATURES: '/features',
+  BLOGS: '/blogs',
 } as const

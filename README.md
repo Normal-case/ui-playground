@@ -19,13 +19,13 @@ React + TypeScript + Vite로 만든 모던 웹 애플리케이션 스타터 템�
 src/
 ├── views/                      # 페이지 (Next.js 스타일 라우팅)
 │   ├── home/
-│   │   └── index.tsx          # / 경로
+│   │   └── page.tsx           # / 경로
 │   └── blogs/
-│       ├── index.tsx           # /blogs
+│       ├── page.tsx            # /blogs
 │       ├── [id]/
-│       │   └── index.tsx      # /blogs/:id (동적 라우트)
-│       ├── components/         # blogs 도메인 컴포넌트
-│       └── hooks/              # blogs 도메인 hooks
+│       │   └── page.tsx       # /blogs/:id (동적 라우트)
+│       ├── _components/        # blogs 도메인 컴포넌트 (라우트 아님)
+│       └── _hooks/             # blogs 도메인 hooks (라우트 아님)
 │
 ├── components/                 # 범용 UI 컴포넌트
 │   ├── ui/                     # 디자인 시스템 컴포넌트
@@ -55,16 +55,17 @@ src/
 #### 1. **views/** - 페이지 컴포넌트
 
 - URL 경로와 파일 구조가 1:1 매칭
-- Next.js 스타일: `index.tsx` 파일명, `[param]` 동적 라우트
-- 도메인별로 `components/`, `hooks/` 포함 가능
+- Next.js 스타일: `page.tsx` 파일명, `[param]` 동적 라우트
+- 도메인별로 `_components/`, `_hooks/` 포함 가능
+- `_` prefix: 라우트가 아닌 리소스 폴더 (components, hooks 등)
 
 ```typescript
 views/blogs/
-├── index.tsx              # /blogs
+├── page.tsx               # /blogs
 ├── [id]/
-│   └── index.tsx         # /blogs/:id
-├── components/            # blogs 전용 컴포넌트
-└── hooks/                 # blogs 전용 hooks
+│   └── page.tsx          # /blogs/:id
+├── _components/           # blogs 전용 컴포넌트 (라우트 아님)
+└── _hooks/                # blogs 전용 hooks (라우트 아님)
 ```
 
 #### 2. **components/** - 범용 UI
@@ -140,7 +141,7 @@ pnpm typecheck
 ### 새 페이지 추가
 
 ```typescript
-// src/views/about/index.tsx
+// src/views/about/page.tsx
 export default function AboutPage() {
   return <div>About Page</div>
 }
@@ -148,6 +149,8 @@ export default function AboutPage() {
 
 ```typescript
 // src/routes.tsx에 추가
+import AboutPage from './views/about/page'
+
 {
   path: 'about',
   element: <AboutPage />
@@ -157,7 +160,7 @@ export default function AboutPage() {
 ### 동적 라우트 추가
 
 ```typescript
-// src/views/users/[id]/index.tsx
+// src/views/users/[id]/page.tsx
 import { useParams } from 'react-router-dom'
 
 export default function UserDetailPage() {
@@ -178,8 +181,8 @@ import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { Header } from '@/components/layout'
 
 // ✅ 상대 경로 (같은 도메인 내부)
-import { BlogCard } from './components/BlogCard'
-import { useBlogs } from './hooks/use-blogs'
+import { BlogCard } from './_components/BlogCard'
+import { useBlogs } from './_hooks/use-blogs'
 ```
 
 ## 🎯 의사결정 가이드
@@ -194,7 +197,7 @@ import { useBlogs } from './hooks/use-blogs'
 │     └─ NO → components/ui/
 └─ NO
    └─ 특정 도메인에만 사용?
-      ├─ YES → views/[domain]/components/
+      ├─ YES → views/[domain]/_components/
       └─ NO → 다시 생각해보기
 ```
 
@@ -205,7 +208,7 @@ React 기능만 확장? (도메인 로직 없음)
 ├─ YES → shared/hooks/
 └─ NO
    └─ API 호출이나 도메인 로직 포함?
-      ├─ YES → views/[domain]/hooks/
+      ├─ YES → views/[domain]/_hooks/
       └─ NO → 다시 생각해보기
 ```
 
@@ -216,7 +219,7 @@ React 기능만 확장? (도메인 로직 없음)
 ├─ YES
 │  └─ 도메인 무관?
 │     ├─ YES → shared/utils/
-│     └─ NO → views/[domain]/utils/
+│     └─ NO → views/[domain]/_utils/
 └─ NO → hook으로 만들기
 ```
 
@@ -255,12 +258,13 @@ React 기능만 확장? (도메인 로직 없음)
 
 - **kebab-case** 사용 (예: `theme-toggle/`, `app-layout/`)
 - 동적 라우트: `[id]/`, `[slug]/` (Next.js 스타일)
+- **언더스코어 prefix** (`_`): 라우트가 아닌 리소스 폴더 (예: `_components/`, `_hooks/`)
 - URL 친화적이고 OS 호환성 좋음
 
 ### 파일명
 
 - 컴포넌트: `PascalCase.tsx` (예: `BlogCard.tsx`, `ThemeToggle.tsx`)
-- 페이지: `index.tsx` (폴더명으로 구분)
+- 페이지: `page.tsx` (폴더명으로 구분, Next.js App Router 스타일)
 - Hooks: `kebab-case.ts` (예: `use-blogs.ts`, `use-theme.ts`)
 - Utils: `kebab-case.ts` (예: `format-date.ts`)
 - Types: `kebab-case.ts` (예: `blog.ts`)
