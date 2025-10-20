@@ -142,7 +142,7 @@ export default function DndBasicPage() {
               <Box
                 key={shape.id}
                 p="3"
-                className="rounded-md border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800"
+                className="rounded-md border border-slate-200 bg-card dark:border-slate-700"
               >
                 <Flex justify="between" align="center">
                   <div>

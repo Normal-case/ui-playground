@@ -200,7 +200,7 @@ export default function TriangleDemoPage() {
       </Card>
 
       {/* 현재 단계 표시 */}
-      <Card mb="4" className="bg-blue-50 dark:bg-blue-950">
+      <Card mb="4" className="bg-info-bg">
         <Heading size="5" mb="2">
           {currentStepData.title}
         </Heading>
@@ -215,16 +215,12 @@ export default function TriangleDemoPage() {
           <Heading size="4" mb="4">
             🎨 시각적 결과
           </Heading>
-          <div className="flex min-h-[300px] items-center justify-center rounded-lg bg-slate-50 p-10 dark:bg-slate-900">
+          <div className="flex min-h-[300px] items-center justify-center rounded-lg bg-surface-canvas p-10">
             <div style={currentStepData.style} />
           </div>
 
           {/* 측정 정보 */}
-          <Box
-            mt="4"
-            p="3"
-            className="rounded-md bg-amber-100 dark:bg-amber-900"
-          >
+          <Box mt="4" p="3" className="rounded-md bg-surface-info">
             <Text size="2" weight="bold" className="mb-2 block">
               📏 측정 정보:
             </Text>
@@ -263,7 +259,7 @@ export default function TriangleDemoPage() {
           <Heading size="4" mb="4">
             💻 CSS 코드
           </Heading>
-          <pre className="overflow-auto rounded-lg bg-slate-800 p-5 text-sm leading-relaxed text-slate-100 dark:bg-slate-950">
+          <pre className="overflow-auto rounded-lg bg-surface-code p-5 text-sm leading-relaxed text-slate-100">
             {currentStepData.code}
           </pre>
         </Card>
@@ -293,7 +289,7 @@ export default function TriangleDemoPage() {
       </Flex>
 
       {/* 핵심 설명 */}
-      <Card mt="4" className="bg-red-50 dark:bg-red-950">
+      <Card mt="4" className="bg-surface-info">
         <Heading size="4" mb="3">
           💡 핵심 원리
         </Heading>
@@ -356,7 +352,7 @@ export default function TriangleDemoPage() {
                 }}
               />
             </div>
-            <pre className="mt-3 rounded bg-slate-100 p-2 text-left text-[11px] dark:bg-slate-800">
+            <pre className="mt-3 rounded bg-surface-canvas p-2 text-left text-[11px]">
               borderBottom
             </pre>
           </div>
@@ -377,7 +373,7 @@ export default function TriangleDemoPage() {
                 }}
               />
             </div>
-            <pre className="mt-3 rounded bg-slate-100 p-2 text-left text-[11px] dark:bg-slate-800">
+            <pre className="mt-3 rounded bg-surface-canvas p-2 text-left text-[11px]">
               borderLeft
             </pre>
           </div>
@@ -398,7 +394,7 @@ export default function TriangleDemoPage() {
                 }}
               />
             </div>
-            <pre className="mt-3 rounded bg-slate-100 p-2 text-left text-[11px] dark:bg-slate-800">
+            <pre className="mt-3 rounded bg-surface-canvas p-2 text-left text-[11px]">
               borderTop
             </pre>
           </div>
@@ -419,7 +415,7 @@ export default function TriangleDemoPage() {
                 }}
               />
             </div>
-            <pre className="mt-3 rounded bg-slate-100 p-2 text-left text-[11px] dark:bg-slate-800">
+            <pre className="mt-3 rounded bg-surface-canvas p-2 text-left text-[11px]">
               borderRight
             </pre>
           </div>

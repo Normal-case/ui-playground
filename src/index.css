@@ -20,6 +20,13 @@
     --sidebar-active: oklch(0.572 0.195 289.23); /* violet-600 */
     --sidebar-inactive: oklch(0.513 0.022 256.59); /* slate-600 */
 
+    /* Surface colors (semantic backgrounds) */
+    --surface-code: oklch(0.232 0.013 256.59); /* slate-800 - 코드 블록 */
+    --surface-info: oklch(0.962 0.006 256.59); /* slate-100 - 정보/설명 박스 */
+    --surface-canvas: oklch(
+      0.98 0.005 256.59
+    ); /* slate-50 - 캔버스 작업 영역 */
+
     /* Border radius */
     --radius: 0.5rem;
 
@@ -50,6 +57,13 @@
     /* Sidebar colors */
     --sidebar-active: oklch(0.746 0.144 293.28); /* violet-400 */
     --sidebar-inactive: oklch(0.649 0.013 256.53); /* slate-400 */
+
+    /* Surface colors (semantic backgrounds) */
+    --surface-code: oklch(0.168 0.01 256.59); /* slate-950 - 코드 블록 */
+    --surface-info: oklch(0.298 0.017 256.53); /* slate-700 - 정보/설명 박스 */
+    --surface-canvas: oklch(
+      0.232 0.013 256.59
+    ); /* slate-800 - 캔버스 작업 영역 */
   }
 
   * {

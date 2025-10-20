@@ -26,6 +26,13 @@ export default {
           active: 'var(--sidebar-active)',
           inactive: 'var(--sidebar-inactive)',
         },
+
+        // Surface colors (semantic backgrounds)
+        surface: {
+          code: 'var(--surface-code)',
+          info: 'var(--surface-info)',
+          canvas: 'var(--surface-canvas)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

@@ -26,7 +26,7 @@ export function Canvas({
     <div
       ref={canvasRef}
       className={cn(
-        'relative overflow-hidden rounded-lg border-2 border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800',
+        'relative overflow-hidden rounded-lg border-2 border-slate-200 bg-surface-canvas dark:border-slate-700',
         dragState.isDragging ? 'cursor-grabbing' : 'cursor-default'
       )}
       style={{
