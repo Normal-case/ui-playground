@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import { Button, Flex, Box, Heading, Text } from '@radix-ui/themes'
 import { Canvas } from './_components/Canvas'
-import { Rectangle, Circle, Triangle, type Shape } from './_classes'
+import {
+  Rectangle,
+  Circle,
+  Triangle,
+  Star,
+  Hexagon,
+  type Shape,
+} from './_classes'
 import { cn } from '@/shared/lib/cn'
 
 // 캔버스 크기 상수
@@ -77,6 +84,40 @@ export default function DndBasicPage() {
   }
 
   /**
+   * 별을 추가합니다.
+   */
+  const addStar = () => {
+    const width = 90
+    const height = 90
+    const star = new Star(
+      `star-${Date.now()}`,
+      Math.random() * (CANVAS_WIDTH - width),
+      Math.random() * (CANVAS_HEIGHT - height),
+      width,
+      height,
+      getRandomColor()
+    )
+    setShapes(prev => [...prev, star])
+  }
+
+  /**
+   * 육각형을 추가합니다.
+   */
+  const addHexagon = () => {
+    const width = 70
+    const height = 80 // 세로로 긴 육각형
+    const hexagon = new Hexagon(
+      `hexagon-${Date.now()}`,
+      Math.random() * (CANVAS_WIDTH - width),
+      Math.random() * (CANVAS_HEIGHT - height),
+      width,
+      height,
+      getRandomColor()
+    )
+    setShapes(prev => [...prev, hexagon])
+  }
+
+  /**
    * 모든 도형을 제거합니다.
    */
   const clearAll = () => {
@@ -105,6 +146,12 @@ export default function DndBasicPage() {
         </Button>
         <Button onClick={addTriangle} variant="soft" color="purple">
           🔺 삼각형 추가
+        </Button>
+        <Button onClick={addStar} variant="soft" color="amber">
+          ⭐ 별 추가
+        </Button>
+        <Button onClick={addHexagon} variant="soft" color="cyan">
+          ⬡ 육각형 추가
         </Button>
         <Button
           onClick={clearAll}
@@ -150,6 +197,8 @@ export default function DndBasicPage() {
                       {shape.type === 'rectangle' && '🟦 사각형'}
                       {shape.type === 'circle' && '🟢 원'}
                       {shape.type === 'triangle' && '🔺 삼각형'}
+                      {shape.type === 'star' && '⭐ 별'}
+                      {shape.type === 'hexagon' && '⬡ 육각형'}
                     </Text>
                     <Text size="1" color="gray" className="mt-1 block">
                       x: {Math.round(shape.x)}, y: {Math.round(shape.y)}

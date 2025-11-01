@@ -21,7 +21,7 @@ export default function BlogDetailPage() {
   if (isLoading) {
     return (
       <Container size="3" className="py-16">
-        <Flex justify="center" align="center" style={{ minHeight: '400px' }}>
+        <Flex justify="center" align="center" className="min-h-[400px]">
           <Text size="4" color="gray">
             로딩 중...
           </Text>
@@ -38,7 +38,7 @@ export default function BlogDetailPage() {
           gap="4"
           justify="center"
           align="center"
-          style={{ minHeight: '400px' }}
+          className="min-h-[400px]"
         >
           <Text size="4" color="gray">
             블로그 글을 찾을 수 없습니다
@@ -106,7 +106,7 @@ export default function BlogDetailPage() {
 
         {/* Content */}
         <Box className="prose dark:prose-invert max-w-none">
-          <Text size="4" style={{ lineHeight: '1.8' }}>
+          <Text size="4" className="leading-[1.8]">
             {blog.content}
           </Text>
         </Box>

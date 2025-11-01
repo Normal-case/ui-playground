@@ -9,6 +9,7 @@ import FeaturesLayout from './views/features/layout'
 import FeaturesPage from './views/features/page'
 import DndBasicPage from './views/features/dnd/basic/page'
 import TriangleDemoPage from './views/features/dnd/triangle-demo/page'
+import ClipPathDemoPage from './views/features/dnd/clip-path-demo/page'
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
           {
             path: 'dnd/triangle-demo',
             element: <TriangleDemoPage />,
+          },
+          {
+            path: 'dnd/clip-path-demo',
+            element: <ClipPathDemoPage />,
           },
         ],
       },

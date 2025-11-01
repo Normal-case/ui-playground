@@ -8,7 +8,7 @@ export default function BlogListPage() {
   if (isLoading) {
     return (
       <Container size="4" className="py-16">
-        <Flex justify="center" align="center" style={{ minHeight: '400px' }}>
+        <Flex justify="center" align="center" className="min-h-[400px]">
           <Text size="4" color="gray">
             로딩 중...
           </Text>
@@ -44,7 +44,7 @@ export default function BlogListPage() {
             align="center"
             direction="column"
             gap="2"
-            style={{ minHeight: '400px' }}
+            className="min-h-[400px]"
           >
             <Text size="4" color="gray">
               아직 작성된 글이 없습니다

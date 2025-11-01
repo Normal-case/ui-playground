@@ -6,6 +6,7 @@ const featuresSidebarData: SidebarSection[] = [
     items: [
       { title: 'Basic DND', href: '/features/dnd/basic' },
       { title: 'Triangle CSS', href: '/features/dnd/triangle-demo' },
+      { title: 'clip-path 가이드', href: '/features/dnd/clip-path-demo' },
     ],
   },
   {
