@@ -10,25 +10,15 @@ import {
   Separator,
 } from '@radix-ui/themes'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
-import { useBlog } from '../_hooks/use-blogs'
+import { getBlogById } from '../_data/blogs'
+import { getBlogContent } from '../_data/_content'
 import { formatDate } from '@/shared/utils'
 
 export default function BlogDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const { blog, isLoading } = useBlog(id!)
-
-  if (isLoading) {
-    return (
-      <Container size="3" className="py-16">
-        <Flex justify="center" align="center" className="min-h-[400px]">
-          <Text size="4" color="gray">
-            로딩 중...
-          </Text>
-        </Flex>
-      </Container>
-    )
-  }
+  const blog = getBlogById(id!)
+  const ContentComponent = id ? getBlogContent(id) : null
 
   if (!blog) {
     return (
@@ -105,11 +95,21 @@ export default function BlogDetailPage() {
         <Separator size="4" />
 
         {/* Content */}
-        <Box className="prose dark:prose-invert max-w-none">
-          <Text size="4" className="leading-[1.8]">
-            {blog.content}
-          </Text>
-        </Box>
+        {ContentComponent ? (
+          <ContentComponent />
+        ) : blog.content ? (
+          <Box className="prose dark:prose-invert max-w-none">
+            <Text size="4" className="leading-[1.8]">
+              {blog.content}
+            </Text>
+          </Box>
+        ) : (
+          <Box className="prose dark:prose-invert max-w-none">
+            <Text size="4" color="gray">
+              컨텐츠가 준비 중입니다.
+            </Text>
+          </Box>
+        )}
 
         <Separator size="4" />
 

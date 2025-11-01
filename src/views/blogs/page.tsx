@@ -1,21 +1,9 @@
 import { Container, Flex, Heading, Text, Box } from '@radix-ui/themes'
 import { BlogCard } from './_components/BlogCard'
-import { useBlogs } from './_hooks/use-blogs'
+import { getAllBlogs } from './_data/blogs'
 
 export default function BlogListPage() {
-  const { blogs, isLoading } = useBlogs()
-
-  if (isLoading) {
-    return (
-      <Container size="4" className="py-16">
-        <Flex justify="center" align="center" className="min-h-[400px]">
-          <Text size="4" color="gray">
-            로딩 중...
-          </Text>
-        </Flex>
-      </Container>
-    )
-  }
+  const blogs = getAllBlogs()
 
   return (
     <Container size="4" className="py-16">
