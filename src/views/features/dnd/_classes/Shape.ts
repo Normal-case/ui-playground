@@ -1,4 +1,4 @@
-import type { ShapeType, Bounds } from '../_types'
+import type { ShapeType, Bounds } from '@dnd/_types'
 
 /**
  * Shape 추상 베이스 클래스

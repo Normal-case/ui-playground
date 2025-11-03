@@ -1,5 +1,5 @@
-import { Shape } from './Shape'
-import { ShapeType } from '../_types'
+import { Shape } from '@dnd/_classes/Shape'
+import { ShapeType } from '@dnd/_types'
 
 /**
  * Circle 클래스

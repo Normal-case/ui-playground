@@ -1,6 +1,6 @@
-import type { Shape } from '../_classes'
+import type { Shape } from '@dnd/_classes'
 import { cn } from '@/shared/lib/cn'
-import { ShapeType } from '../_types'
+import { ShapeType } from '@dnd/_types'
 
 interface ShapeRendererProps {
   shape: Shape

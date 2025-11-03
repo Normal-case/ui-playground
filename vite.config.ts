@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@dnd': path.resolve(__dirname, './src/views/features/dnd'),
     },
   },
 })

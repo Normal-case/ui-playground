@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
-import type { Shape } from '../_classes'
+import type { Shape } from '@dnd/_classes'
 
 interface DragState {
   isDragging: boolean

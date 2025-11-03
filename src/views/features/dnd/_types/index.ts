@@ -28,3 +28,10 @@ export interface ShapeConfig {
   color: string
   isDragging?: boolean
 }
+
+export enum ResizeHandle {
+  TopLeft = 'tl',
+  TopRight = 'tr',
+  BottomLeft = 'bl',
+  BottomRight = 'br',
+}

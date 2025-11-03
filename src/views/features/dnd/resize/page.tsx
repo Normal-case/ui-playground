@@ -16,7 +16,7 @@ import { ShapeType } from '@dnd/_types'
 const CANVAS_WIDTH = 800
 const CANVAS_HEIGHT = 600
 
-export default function DndBasicPage() {
+export default function DndResizePage() {
   const [shapes, setShapes] = useState<Shape[]>([])
 
   const getRandomColor = () => {
@@ -108,11 +108,11 @@ export default function DndBasicPage() {
     <div>
       <Box mb="4">
         <Heading size="6" mb="2">
-          DND Basic - 도형 드래그 앤 드롭
+          DND Resize - 도형 드래그 & 리사이즈
         </Heading>
         <Text size="2" color="gray">
-          도형을 추가하고 자유롭게 드래그해보세요. 각 도형은 클래스로 관리되며
-          (x, y, w, h) 위치 정보를 가집니다.
+          도형을 추가하고 자유롭게 드래그하거나 크기를 조절해보세요. 도형을
+          클릭하면 4개의 모서리에 리사이즈 핸들이 표시됩니다.
         </Text>
       </Box>
 
@@ -180,7 +180,7 @@ export default function DndBasicPage() {
                       x: {Math.round(shape.x)}, y: {Math.round(shape.y)}
                     </Text>
                     <Text size="1" color="gray" className="block">
-                      w: {shape.w}, h: {shape.h}
+                      w: {Math.round(shape.w)}, h: {Math.round(shape.h)}
                     </Text>
                   </div>
                   <div

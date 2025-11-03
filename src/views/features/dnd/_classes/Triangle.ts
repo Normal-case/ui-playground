@@ -1,5 +1,5 @@
-import { ShapeType } from '../_types'
-import { Shape } from './Shape'
+import { ShapeType } from '@dnd/_types'
+import { Shape } from '@dnd/_classes/Shape'
 
 /**
  * Triangle 클래스

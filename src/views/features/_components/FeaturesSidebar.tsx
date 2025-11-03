@@ -3,7 +3,10 @@ import { Sidebar, type SidebarSection } from '@/components/ui/sidebar'
 const featuresSidebarData: SidebarSection[] = [
   {
     title: 'DragAndDrop',
-    items: [{ title: 'Basic DND', href: '/features/dnd/basic' }],
+    items: [
+      { title: 'Basic DND', href: '/features/dnd/basic' },
+      { title: 'Resize DND', href: '/features/dnd/resize' },
+    ],
   },
   {
     title: 'Recent Features',
