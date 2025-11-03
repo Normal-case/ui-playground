@@ -1,4 +1,4 @@
-import { PolygonBlogContent } from './PolygonBlogContent'
+import { PolygonBlogContent } from '../_data/_content/PolygonBlogContent'
 
 /**
  * 블로그 ID와 컴포넌트 매핑

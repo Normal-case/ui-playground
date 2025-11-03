@@ -10,6 +10,7 @@ import {
   type Shape,
 } from './_classes'
 import { cn } from '@/shared/lib/cn'
+import { ShapeType } from './_types'
 
 // 캔버스 크기 상수
 const CANVAS_WIDTH = 800
@@ -18,9 +19,6 @@ const CANVAS_HEIGHT = 600
 export default function DndBasicPage() {
   const [shapes, setShapes] = useState<Shape[]>([])
 
-  /**
-   * 랜덤한 색상을 생성합니다.
-   */
   const getRandomColor = () => {
     const colors = [
       '#3b82f6', // blue
@@ -34,9 +32,6 @@ export default function DndBasicPage() {
     return colors[Math.floor(Math.random() * colors.length)]
   }
 
-  /**
-   * 사각형을 추가합니다.
-   */
   const addRectangle = () => {
     const width = 100
     const height = 80
@@ -51,9 +46,6 @@ export default function DndBasicPage() {
     setShapes(prev => [...prev, rect])
   }
 
-  /**
-   * 원을 추가합니다.
-   */
   const addCircle = () => {
     const diameter = 80
     const circle = new Circle(
@@ -66,9 +58,6 @@ export default function DndBasicPage() {
     setShapes(prev => [...prev, circle])
   }
 
-  /**
-   * 삼각형을 추가합니다.
-   */
   const addTriangle = () => {
     const width = 100
     const height = 90
@@ -83,9 +72,6 @@ export default function DndBasicPage() {
     setShapes(prev => [...prev, triangle])
   }
 
-  /**
-   * 별을 추가합니다.
-   */
   const addStar = () => {
     const width = 90
     const height = 90
@@ -100,9 +86,6 @@ export default function DndBasicPage() {
     setShapes(prev => [...prev, star])
   }
 
-  /**
-   * 육각형을 추가합니다.
-   */
   const addHexagon = () => {
     const width = 70
     const height = 80 // 세로로 긴 육각형
@@ -117,9 +100,6 @@ export default function DndBasicPage() {
     setShapes(prev => [...prev, hexagon])
   }
 
-  /**
-   * 모든 도형을 제거합니다.
-   */
   const clearAll = () => {
     setShapes([])
   }
@@ -136,7 +116,6 @@ export default function DndBasicPage() {
         </Text>
       </Box>
 
-      {/* 컨트롤 패널 */}
       <Flex gap="3" mb="4" wrap="wrap">
         <Button onClick={addRectangle} variant="soft" color="blue">
           🟦 사각형 추가
@@ -163,14 +142,12 @@ export default function DndBasicPage() {
         </Button>
       </Flex>
 
-      {/* 상태 정보 */}
       <Box mb="4">
         <Text size="2" color="gray">
           현재 도형 개수: <strong>{shapes.length}</strong>
         </Text>
       </Box>
 
-      {/* 캔버스 */}
       <Canvas
         shapes={shapes}
         setShapes={setShapes}
@@ -178,7 +155,6 @@ export default function DndBasicPage() {
         height={CANVAS_HEIGHT}
       />
 
-      {/* 도형 목록 */}
       {shapes.length > 0 && (
         <Box mt="4">
           <Heading size="4" mb="2">
@@ -194,11 +170,11 @@ export default function DndBasicPage() {
                 <Flex justify="between" align="center">
                   <div>
                     <Text size="2" weight="bold">
-                      {shape.type === 'rectangle' && '🟦 사각형'}
-                      {shape.type === 'circle' && '🟢 원'}
-                      {shape.type === 'triangle' && '🔺 삼각형'}
-                      {shape.type === 'star' && '⭐ 별'}
-                      {shape.type === 'hexagon' && '⬡ 육각형'}
+                      {shape.type === ShapeType.Rectangle && '🟦 사각형'}
+                      {shape.type === ShapeType.Circle && '🟢 원'}
+                      {shape.type === ShapeType.Triangle && '🔺 삼각형'}
+                      {shape.type === ShapeType.Star && '⭐ 별'}
+                      {shape.type === ShapeType.Hexagon && '⬡ 육각형'}
                     </Text>
                     <Text size="1" color="gray" className="mt-1 block">
                       x: {Math.round(shape.x)}, y: {Math.round(shape.y)}
@@ -210,7 +186,9 @@ export default function DndBasicPage() {
                   <div
                     className={cn(
                       'h-6 w-6',
-                      shape.type === 'circle' ? 'rounded-full' : 'rounded'
+                      shape.type === ShapeType.Circle
+                        ? 'rounded-full'
+                        : 'rounded'
                     )}
                     style={{
                       backgroundColor: shape.color,

@@ -1,4 +1,5 @@
 import { Shape } from './Shape'
+import { ShapeType } from '../_types'
 
 /**
  * Circle 클래스
@@ -13,7 +14,7 @@ export class Circle extends Shape {
     color: string
   ) {
     // 원의 경우 w와 h가 동일합니다
-    super(id, 'circle', x, y, diameter, diameter, color)
+    super(id, ShapeType.Circle, x, y, diameter, diameter, color)
   }
 
   /**

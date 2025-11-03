@@ -1,5 +1,6 @@
 import type { Shape } from '../_classes'
 import { cn } from '@/shared/lib/cn'
+import { ShapeType } from '../_types'
 
 interface ShapeRendererProps {
   shape: Shape
@@ -34,7 +35,7 @@ function createPolygonPath(shape: Shape): string {
  */
 export function ShapeRenderer({ shape, isDragging }: ShapeRendererProps) {
   // 삼각형의 경우 border trick 사용
-  if (shape.type === 'triangle') {
+  if (shape.type === ShapeType.Triangle) {
     return (
       <div
         className="absolute cursor-move select-none"
@@ -64,7 +65,7 @@ export function ShapeRenderer({ shape, isDragging }: ShapeRendererProps) {
   }
 
   // 별: clip-path polygon으로 5각 별 그리기
-  if (shape.type === 'star') {
+  if (shape.type === ShapeType.Star) {
     return (
       <div
         className={cn(
@@ -86,7 +87,7 @@ export function ShapeRenderer({ shape, isDragging }: ShapeRendererProps) {
   }
 
   // 육각형: clip-path polygon으로 정육각형 그리기
-  if (shape.type === 'hexagon') {
+  if (shape.type === ShapeType.Hexagon) {
     return (
       <div
         className={cn(
@@ -115,7 +116,7 @@ export function ShapeRenderer({ shape, isDragging }: ShapeRendererProps) {
         isDragging
           ? 'shadow-[0_8px_16px_rgba(0,0,0,0.3)]'
           : 'shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-shadow duration-200',
-        shape.type === 'circle' && 'rounded-full'
+        shape.type === ShapeType.Circle && 'rounded-full'
       )}
       style={{
         left: `${shape.x}px`,

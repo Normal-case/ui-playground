@@ -21,10 +21,6 @@ export function useDragAndDrop(
 
   const canvasRef = useRef<HTMLDivElement>(null)
 
-  /**
-   * 마우스 다운 이벤트 핸들러
-   * 클릭한 위치에 있는 도형을 찾아 드래그를 시작합니다.
-   */
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (!canvasRef.current) return
@@ -33,7 +29,6 @@ export function useDragAndDrop(
       const x = e.clientX - rect.left
       const y = e.clientY - rect.top
 
-      // 역순으로 검색 (위에 있는 도형부터)
       for (let i = shapes.length - 1; i >= 0; i--) {
         const shape = shapes[i]
         if (shape.contains(x, y)) {
@@ -44,7 +39,6 @@ export function useDragAndDrop(
             offsetY: y - shape.y,
           })
 
-          // 드래그 중인 도형을 배열의 맨 뒤로 이동 (z-index 효과)
           setShapes(prev => {
             const newShapes = prev.filter(s => s.id !== shape.id)
             return [...newShapes, shape]
@@ -56,10 +50,6 @@ export function useDragAndDrop(
     [shapes, setShapes]
   )
 
-  /**
-   * 마우스 이동 이벤트 핸들러
-   * 드래그 중인 도형의 위치를 업데이트합니다.
-   */
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (
@@ -97,10 +87,6 @@ export function useDragAndDrop(
     [dragState, setShapes]
   )
 
-  /**
-   * 마우스 업 이벤트 핸들러
-   * 드래그를 종료합니다.
-   */
   const handleMouseUp = useCallback(() => {
     setDragState({
       isDragging: false,
@@ -110,9 +96,6 @@ export function useDragAndDrop(
     })
   }, [])
 
-  /**
-   * 마우스가 캔버스를 벗어났을 때의 핸들러
-   */
   const handleMouseLeave = useCallback(() => {
     if (dragState.isDragging) {
       setDragState({

@@ -1,3 +1,4 @@
+import { ShapeType } from '../_types'
 import { Shape } from './Shape'
 
 /**
@@ -14,7 +15,7 @@ export class Star extends Shape {
     h: number,
     color: string
   ) {
-    super(id, 'star', x, y, w, h, color)
+    super(id, ShapeType.Star, x, y, w, h, color)
   }
 
   /**

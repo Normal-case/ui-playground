@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import type React from 'react'
 import { Box, Heading, Text, Card, Flex, Button, Code } from '@radix-ui/themes'
 
 /**

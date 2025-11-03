@@ -1,4 +1,5 @@
 import { Shape } from './Shape'
+import { ShapeType } from '../_types'
 
 /**
  * Hexagon 클래스
@@ -14,7 +15,7 @@ export class Hexagon extends Shape {
     h: number,
     color: string
   ) {
-    super(id, 'hexagon', x, y, w, h, color)
+    super(id, ShapeType.Hexagon, x, y, w, h, color)
   }
 
   /**

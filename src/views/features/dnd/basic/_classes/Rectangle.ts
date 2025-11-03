@@ -1,4 +1,5 @@
 import { Shape } from './Shape'
+import { ShapeType } from '../_types'
 
 /**
  * Rectangle 클래스
@@ -13,7 +14,7 @@ export class Rectangle extends Shape {
     h: number,
     color: string
   ) {
-    super(id, 'rectangle', x, y, w, h, color)
+    super(id, ShapeType.Rectangle, x, y, w, h, color)
   }
 
   /**

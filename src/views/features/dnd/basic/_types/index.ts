@@ -10,7 +10,13 @@ export interface Size {
 
 export interface Bounds extends Position, Size {}
 
-export type ShapeType = 'rectangle' | 'circle' | 'triangle' | 'star' | 'hexagon'
+export enum ShapeType {
+  Rectangle = 'rectangle',
+  Circle = 'circle',
+  Triangle = 'triangle',
+  Star = 'star',
+  Hexagon = 'hexagon',
+}
 
 export interface ShapeConfig {
   id: string
