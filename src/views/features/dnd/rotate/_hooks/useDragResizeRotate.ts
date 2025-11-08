@@ -256,6 +256,9 @@ export function useDragResizeRotate(
         interactionState.initialAngle !== null
       ) {
         // 회전 처리
+        const initialRotation = interactionState.initialRotation
+        const initialAngle = interactionState.initialAngle
+
         setShapes(prev =>
           prev.map(shape => {
             if (shape.id === interactionState.targetShapeId) {
@@ -268,11 +271,10 @@ export function useDragResizeRotate(
               )
 
               // 각도 변화량 계산 (라디안 → 도)
-              const angleDelta =
-                ((currentAngle - interactionState.initialAngle) * 180) / Math.PI
+              const angleDelta = ((currentAngle - initialAngle) * 180) / Math.PI
 
               // 새로운 회전 각도 계산
-              let newRotation = interactionState.initialRotation + angleDelta
+              let newRotation = initialRotation + angleDelta
 
               // 0-360 범위로 정규화
               newRotation = ((newRotation % 360) + 360) % 360

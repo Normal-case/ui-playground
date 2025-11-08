@@ -14,6 +14,7 @@ export abstract class Shape {
   color: string
   isDragging: boolean
   rotation: number // 회전 각도 (0-360도)
+  createdAt: number // 생성 시간 (타임스탬프)
 
   constructor(
     id: string,
@@ -34,6 +35,7 @@ export abstract class Shape {
     this.color = color
     this.isDragging = false
     this.rotation = rotation
+    this.createdAt = Date.now()
   }
 
   /**

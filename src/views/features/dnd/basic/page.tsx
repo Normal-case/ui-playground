@@ -9,8 +9,8 @@ import {
   Hexagon,
   type Shape,
 } from '@dnd/_classes'
-import { cn } from '@/shared/lib/cn'
 import { ShapeType } from '@dnd/_types'
+import { ShapePreview } from '@dnd/_components'
 
 // 캔버스 크기 상수
 const CANVAS_WIDTH = 800
@@ -161,42 +161,34 @@ export default function DndBasicPage() {
             도형 목록
           </Heading>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-3">
-            {shapes.map(shape => (
-              <Box
-                key={shape.id}
-                p="3"
-                className="rounded-md border border-slate-200 bg-card dark:border-slate-700"
-              >
-                <Flex justify="between" align="center">
-                  <div>
-                    <Text size="2" weight="bold">
-                      {shape.type === ShapeType.Rectangle && '🟦 사각형'}
-                      {shape.type === ShapeType.Circle && '🟢 원'}
-                      {shape.type === ShapeType.Triangle && '🔺 삼각형'}
-                      {shape.type === ShapeType.Star && '⭐ 별'}
-                      {shape.type === ShapeType.Hexagon && '⬡ 육각형'}
-                    </Text>
-                    <Text size="1" color="gray" className="mt-1 block">
-                      x: {Math.round(shape.x)}, y: {Math.round(shape.y)}
-                    </Text>
-                    <Text size="1" color="gray" className="block">
-                      w: {shape.w}, h: {shape.h}
-                    </Text>
-                  </div>
-                  <div
-                    className={cn(
-                      'h-6 w-6',
-                      shape.type === ShapeType.Circle
-                        ? 'rounded-full'
-                        : 'rounded'
-                    )}
-                    style={{
-                      backgroundColor: shape.color,
-                    }}
-                  />
-                </Flex>
-              </Box>
-            ))}
+            {[...shapes]
+              .sort((a, b) => a.createdAt - b.createdAt)
+              .map(shape => (
+                <Box
+                  key={shape.id}
+                  p="3"
+                  className="rounded-md border border-slate-200 bg-card dark:border-slate-700"
+                >
+                  <Flex justify="between" align="center">
+                    <div>
+                      <Text size="2" weight="bold">
+                        {shape.type === ShapeType.Rectangle && '🟦 사각형'}
+                        {shape.type === ShapeType.Circle && '🟢 원'}
+                        {shape.type === ShapeType.Triangle && '🔺 삼각형'}
+                        {shape.type === ShapeType.Star && '⭐ 별'}
+                        {shape.type === ShapeType.Hexagon && '⬡ 육각형'}
+                      </Text>
+                      <Text size="1" color="gray" className="mt-1 block">
+                        x: {Math.round(shape.x)}, y: {Math.round(shape.y)}
+                      </Text>
+                      <Text size="1" color="gray" className="block">
+                        w: {shape.w}, h: {shape.h}
+                      </Text>
+                    </div>
+                    <ShapePreview shape={shape} />
+                  </Flex>
+                </Box>
+              ))}
           </div>
         </Box>
       )}
