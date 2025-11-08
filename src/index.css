@@ -22,10 +22,15 @@
 
     /* Surface colors (semantic backgrounds) */
     --surface-code: oklch(0.232 0.013 256.59); /* slate-800 - 코드 블록 */
+    --surface-code-dark: oklch(0.185 0.01 256.59); /* gray-900 - 어두운 코드 블록 */
+    --surface-code-light: oklch(0.962 0.006 256.59); /* gray-100 - 밝은 코드 블록 */
     --surface-info: oklch(0.962 0.006 256.59); /* slate-100 - 정보/설명 박스 */
     --surface-canvas: oklch(
       0.98 0.005 256.59
     ); /* slate-50 - 캔버스 작업 영역 */
+    
+    /* Text colors for code blocks */
+    --text-code: oklch(0.823 0.007 256.53); /* gray-300 - 어두운 배경의 코드 텍스트 */
 
     /* Border radius */
     --radius: 0.5rem;
@@ -60,10 +65,15 @@
 
     /* Surface colors (semantic backgrounds) */
     --surface-code: oklch(0.168 0.01 256.59); /* slate-950 - 코드 블록 */
+    --surface-code-dark: oklch(0.13 0.01 256.59); /* gray-950 - 어두운 코드 블록 */
+    --surface-code-light: oklch(0.232 0.013 256.59); /* gray-800 - 밝은 코드 블록 */
     --surface-info: oklch(0.298 0.017 256.53); /* slate-700 - 정보/설명 박스 */
     --surface-canvas: oklch(
       0.232 0.013 256.59
     ); /* slate-800 - 캔버스 작업 영역 */
+    
+    /* Text colors for code blocks */
+    --text-code: oklch(0.708 0.013 256.53); /* gray-400 - 어두운 배경의 코드 텍스트 */
   }
 
   * {

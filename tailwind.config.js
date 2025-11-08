@@ -16,6 +16,9 @@ export default {
         muted: {
           foreground: 'var(--muted-foreground)',
         },
+        code: {
+          DEFAULT: 'var(--text-code)',
+        },
         accent: {
           DEFAULT: 'var(--accent)',
           foreground: 'var(--accent-foreground)',
@@ -30,6 +33,8 @@ export default {
         // Surface colors (semantic backgrounds)
         surface: {
           code: 'var(--surface-code)',
+          'code-dark': 'var(--surface-code-dark)',
+          'code-light': 'var(--surface-code-light)',
           info: 'var(--surface-info)',
           canvas: 'var(--surface-canvas)',
         },
