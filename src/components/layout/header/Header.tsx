@@ -13,7 +13,7 @@ interface HeaderProps {
 const menuItems = [
   { path: '/', label: 'Home' },
   { path: '/blogs', label: 'Blogs' },
-  { path: '/features', label: 'Features' },
+  { path: '/features/dnd/basic', label: 'Features' },
 ]
 
 export function Header({

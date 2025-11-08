@@ -37,10 +37,6 @@ export const router = createBrowserRouter([
         element: <FeaturesLayout />,
         children: [
           {
-            index: true,
-            element: <FeaturesPage />,
-          },
-          {
             path: 'dnd/basic',
             element: <DndBasicPage />,
           },
