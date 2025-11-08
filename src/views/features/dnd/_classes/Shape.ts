@@ -13,6 +13,7 @@ export abstract class Shape {
   h: number
   color: string
   isDragging: boolean
+  rotation: number // 회전 각도 (0-360도)
 
   constructor(
     id: string,
@@ -21,7 +22,8 @@ export abstract class Shape {
     y: number,
     w: number,
     h: number,
-    color: string
+    color: string,
+    rotation: number = 0
   ) {
     this.id = id
     this.type = type
@@ -31,6 +33,7 @@ export abstract class Shape {
     this.h = h
     this.color = color
     this.isDragging = false
+    this.rotation = rotation
   }
 
   /**
@@ -55,6 +58,13 @@ export abstract class Shape {
   setSize(w: number, h: number): void {
     this.w = w
     this.h = h
+  }
+
+  /**
+   * 도형의 회전 각도를 설정합니다.
+   */
+  setRotation(rotation: number): void {
+    this.rotation = rotation % 360
   }
 
   /**
@@ -97,6 +107,7 @@ export abstract class Shape {
       h: this.h,
       color: this.color,
       isDragging: this.isDragging,
+      rotation: this.rotation,
     }
   }
 }

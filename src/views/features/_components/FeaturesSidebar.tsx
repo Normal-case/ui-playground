@@ -6,6 +6,7 @@ const featuresSidebarData: SidebarSection[] = [
     items: [
       { title: 'Basic DND', href: '/features/dnd/basic' },
       { title: 'Resize DND', href: '/features/dnd/resize' },
+      { title: 'Rotate DND', href: '/features/dnd/rotate' },
     ],
   },
   {

@@ -35,3 +35,9 @@ export enum ResizeHandle {
   BottomLeft = 'bl',
   BottomRight = 'br',
 }
+
+export enum RotateHandle {
+  Top = 'rotate-top',
+}
+
+export type InteractionMode = 'idle' | 'dragging' | 'resizing' | 'rotating'
