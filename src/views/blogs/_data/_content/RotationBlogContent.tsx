@@ -461,6 +461,149 @@ newRotation = ((newRotation % 360) + 360) % 360`}
           필요합니다.
         </Text>
 
+        <Card variant="surface" mb="4">
+          <Heading size="4" mb="2">
+            📏 라디안이란?
+          </Heading>
+          <Text mb="3">
+            라디안은 <strong>반지름을 기준으로 한 각도 단위</strong>입니다.
+          </Text>
+
+          <Box p="3" mb="3" className="bg-surface-code-light rounded-md">
+            <Text weight="bold" mb="2">
+              정의:
+            </Text>
+            <Text size="2" mb="2">
+              <strong>1 라디안</strong> = 반지름과 같은 길이의 호에 대응하는
+              각도
+            </Text>
+            <Box mt="3" className="flex justify-center">
+              <svg viewBox="0 0 200 200" className="w-48 h-48">
+                {/* 원 */}
+                <circle
+                  cx="100"
+                  cy="100"
+                  r="70"
+                  fill="none"
+                  stroke="#8b5cf6"
+                  strokeWidth="2"
+                />
+
+                {/* 중심점 */}
+                <circle cx="100" cy="100" r="3" fill="#ef4444" />
+
+                {/* 반지름 (오른쪽) */}
+                <line
+                  x1="100"
+                  y1="100"
+                  x2="170"
+                  y2="100"
+                  stroke="#10b981"
+                  strokeWidth="2"
+                />
+                <text
+                  x="130"
+                  y="95"
+                  fill="#10b981"
+                  fontSize="12"
+                  fontWeight="bold"
+                >
+                  r
+                </text>
+
+                {/* 호 (1 라디안) */}
+                <path
+                  d="M 170 100 A 70 70 0 0 1 137.82 158.9"
+                  fill="none"
+                  stroke="#f59e0b"
+                  strokeWidth="3"
+                />
+                <text
+                  x="165"
+                  y="140"
+                  fill="#f59e0b"
+                  fontSize="12"
+                  fontWeight="bold"
+                >
+                  호 = r
+                </text>
+
+                {/* 각도 표시 선 */}
+                <line
+                  x1="100"
+                  y1="100"
+                  x2="137.82"
+                  y2="158.9"
+                  stroke="#10b981"
+                  strokeWidth="2"
+                  strokeDasharray="3,3"
+                />
+
+                {/* 각도 호 */}
+                <path
+                  d="M 120 100 A 20 20 0 0 1 114 114"
+                  fill="none"
+                  stroke="#ef4444"
+                  strokeWidth="1.5"
+                />
+                <text
+                  x="125"
+                  y="115"
+                  fill="#ef4444"
+                  fontSize="11"
+                  fontWeight="bold"
+                >
+                  1 rad
+                </text>
+
+                {/* 레이블 */}
+                <text
+                  x="95"
+                  y="190"
+                  fill="#64748b"
+                  fontSize="11"
+                  textAnchor="middle"
+                >
+                  호의 길이 = 반지름일 때 → 1 라디안
+                </text>
+              </svg>
+            </Box>
+          </Box>
+
+          <Box p="3" className="bg-surface-info rounded-md">
+            <Text size="2" weight="bold" mb="2">
+              🤔 왜 360° = 2π 라디안일까?
+            </Text>
+            <Flex direction="column" gap="2">
+              <Text size="2">
+                <strong>1.</strong> 원의 둘레 = 2πr
+              </Text>
+              <Text size="2">
+                <strong>2.</strong> 둘레를 반지름으로 나누면 = 2πr ÷ r ={' '}
+                <strong>2π</strong>
+              </Text>
+              <Text size="2">
+                <strong>3.</strong> 즉, 원 한 바퀴에 "반지름 길이 호"가{' '}
+                <strong>2π개</strong> 들어감
+              </Text>
+              <Text size="2">
+                <strong>4.</strong> 각 "반지름 길이 호" = 1 라디안
+              </Text>
+              <Text size="2" weight="bold" className="text-violet-600">
+                → 따라서 한 바퀴(360°) = 2π 라디안 ≈ 6.28 라디안
+              </Text>
+            </Flex>
+          </Box>
+
+          <Callout.Root color="purple" mt="3">
+            <Callout.Text>
+              💡 <strong>핵심:</strong> 라디안은 "반지름을 몇 번 재야 그 호를
+              만들 수 있는가"를 나타냅니다. 180° = π 라디안, 90° = π/2
+              라디안입니다.
+            </Callout.Text>
+          </Callout.Root>
+        </Card>
+
         <Flex gap="4" mb="3">
           <Card className="flex-1">
             <Heading size="3" mb="2">
