@@ -1,6 +1,11 @@
 import { useState, useCallback, useRef } from 'react'
 import type { Shape } from '@dnd/_classes'
 import { ResizeHandle, RotateHandle, type InteractionMode } from '@dnd/_types'
+import {
+  constrainRotatedShapeToCanvas,
+  globalToLocalCoordinates,
+  localToGlobalCoordinates,
+} from '@dnd/rotate/_utils'
 
 interface InteractionState {
   mode: InteractionMode
@@ -164,9 +169,24 @@ export function useDragResizeRotate(
               let newX = mouseX - interactionState.offsetX
               let newY = mouseY - interactionState.offsetY
 
-              // 캔버스 경계 체크
-              newX = Math.max(0, Math.min(newX, rect.width - shape.w))
-              newY = Math.max(0, Math.min(newY, rect.height - shape.h))
+              // 회전된 도형의 바운딩 박스를 고려한 캔버스 경계 체크
+              if (shape.rotation !== 0) {
+                const constrained = constrainRotatedShapeToCanvas(
+                  newX,
+                  newY,
+                  shape.w,
+                  shape.h,
+                  shape.rotation,
+                  rect.width,
+                  rect.height
+                )
+                newX = constrained.x
+                newY = constrained.y
+              } else {
+                // 회전이 없는 경우 기존 방식
+                newX = Math.max(0, Math.min(newX, rect.width - shape.w))
+                newY = Math.max(0, Math.min(newY, rect.height - shape.h))
+              }
 
               shape.setPosition(newX, newY)
             }
@@ -186,6 +206,13 @@ export function useDragResizeRotate(
         setShapes(prev =>
           prev.map(shape => {
             if (shape.id === interactionState.targetShapeId) {
+              // 마우스 델타를 도형의 로컬 좌표계로 변환 (역회전)
+              const localDelta = globalToLocalCoordinates(
+                deltaX,
+                deltaY,
+                shape.rotation
+              )
+
               let newX = initialBounds.x
               let newY = initialBounds.y
               let newW = initialBounds.w
@@ -194,55 +221,76 @@ export function useDragResizeRotate(
               // 최소 크기
               const MIN_SIZE = 20
 
-              // 각 핸들에 따른 리사이즈 로직
+              // 각 핸들에 따른 리사이즈 로직 (로컬 좌표계 기준)
               switch (resizeHandle) {
                 case ResizeHandle.TopLeft:
-                  newX = initialBounds.x + deltaX
-                  newY = initialBounds.y + deltaY
-                  newW = initialBounds.w - deltaX
-                  newH = initialBounds.h - deltaY
+                  newW = initialBounds.w - localDelta.x
+                  newH = initialBounds.h - localDelta.y
                   break
                 case ResizeHandle.TopRight:
-                  newY = initialBounds.y + deltaY
-                  newW = initialBounds.w + deltaX
-                  newH = initialBounds.h - deltaY
+                  newW = initialBounds.w + localDelta.x
+                  newH = initialBounds.h - localDelta.y
                   break
                 case ResizeHandle.BottomLeft:
-                  newX = initialBounds.x + deltaX
-                  newW = initialBounds.w - deltaX
-                  newH = initialBounds.h + deltaY
+                  newW = initialBounds.w - localDelta.x
+                  newH = initialBounds.h + localDelta.y
                   break
                 case ResizeHandle.BottomRight:
-                  newW = initialBounds.w + deltaX
-                  newH = initialBounds.h + deltaY
+                  newW = initialBounds.w + localDelta.x
+                  newH = initialBounds.h + localDelta.y
                   break
               }
 
               // 최소 크기 적용
               if (newW < MIN_SIZE) {
                 newW = MIN_SIZE
-                if (
-                  resizeHandle === ResizeHandle.TopLeft ||
-                  resizeHandle === ResizeHandle.BottomLeft
-                ) {
-                  newX = initialBounds.x + initialBounds.w - MIN_SIZE
-                }
               }
               if (newH < MIN_SIZE) {
                 newH = MIN_SIZE
-                if (
-                  resizeHandle === ResizeHandle.TopLeft ||
-                  resizeHandle === ResizeHandle.TopRight
-                ) {
-                  newY = initialBounds.y + initialBounds.h - MIN_SIZE
-                }
               }
 
-              // 캔버스 경계 체크
+              // 크기가 변경되었을 때, 중심점을 유지하도록 위치 조정
+              const initialCenter = {
+                x: initialBounds.x + initialBounds.w / 2,
+                y: initialBounds.y + initialBounds.h / 2,
+              }
+
+              // 로컬 좌표계에서의 크기 변화에 따른 중심점 이동
+              let centerOffsetX = 0
+              let centerOffsetY = 0
+
+              switch (resizeHandle) {
+                case ResizeHandle.TopLeft:
+                  centerOffsetX = (initialBounds.w - newW) / 2
+                  centerOffsetY = (initialBounds.h - newH) / 2
+                  break
+                case ResizeHandle.TopRight:
+                  centerOffsetX = (newW - initialBounds.w) / 2
+                  centerOffsetY = (initialBounds.h - newH) / 2
+                  break
+                case ResizeHandle.BottomLeft:
+                  centerOffsetX = (initialBounds.w - newW) / 2
+                  centerOffsetY = (newH - initialBounds.h) / 2
+                  break
+                case ResizeHandle.BottomRight:
+                  centerOffsetX = (newW - initialBounds.w) / 2
+                  centerOffsetY = (newH - initialBounds.h) / 2
+                  break
+              }
+
+              // 로컬 좌표계의 오프셋을 전역 좌표계로 변환 (정회전)
+              const globalOffset = localToGlobalCoordinates(
+                centerOffsetX,
+                centerOffsetY,
+                shape.rotation
+              )
+
+              newX = initialCenter.x + globalOffset.x - newW / 2
+              newY = initialCenter.y + globalOffset.y - newH / 2
+
+              // 캔버스 경계 체크 (회전된 도형의 바운딩 박스를 고려하면 더 복잡하므로 기본 체크만 수행)
               newX = Math.max(0, Math.min(newX, rect.width - MIN_SIZE))
               newY = Math.max(0, Math.min(newY, rect.height - MIN_SIZE))
-              newW = Math.min(newW, rect.width - newX)
-              newH = Math.min(newH, rect.height - newY)
 
               shape.setPosition(newX, newY)
               shape.setSize(newW, newH)
@@ -280,6 +328,22 @@ export function useDragResizeRotate(
               newRotation = ((newRotation % 360) + 360) % 360
 
               shape.setRotation(newRotation)
+
+              // 회전 후 캔버스 경계 체크 및 위치 조정
+              const constrained = constrainRotatedShapeToCanvas(
+                shape.x,
+                shape.y,
+                shape.w,
+                shape.h,
+                newRotation,
+                rect.width,
+                rect.height
+              )
+
+              // 위치가 조정되었다면 새 위치 적용
+              if (constrained.x !== shape.x || constrained.y !== shape.y) {
+                shape.setPosition(constrained.x, constrained.y)
+              }
             }
             return shape
           })
