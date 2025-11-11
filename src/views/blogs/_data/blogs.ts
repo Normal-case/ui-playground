@@ -6,6 +6,19 @@ import type { Blog } from '@/types/blog'
  */
 export const BLOGS: Blog[] = [
   {
+    id: 'rotated-shape-resize',
+    title: '회전된 도형 리사이즈하기',
+    content: '', // 컴포넌트로 렌더링되므로 비워둠
+    excerpt:
+      '회전된 도형을 자연스럽게 리사이즈하는 방법을 알아봅니다. 전역 좌표계와 로컬 좌표계의 개념, 회전 변환 행렬, 그리고 실제 구현 방법을 다룹니다.',
+    author: {
+      name: '여찬복',
+    },
+    createdAt: '2024-11-11',
+    updatedAt: '2024-11-11',
+    tags: ['JavaScript', 'Math', 'Interactive', 'Linear Algebra', 'Frontend'],
+  },
+  {
     id: 'rotation-angle-calculation',
     title: '도형 회전 각도 계산의 원리',
     content: '', // 컴포넌트로 렌더링되므로 비워둠

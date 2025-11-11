@@ -1,6 +1,7 @@
 import type React from 'react'
 import { PolygonBlogContent } from './PolygonBlogContent'
 import { RotationBlogContent } from './RotationBlogContent'
+import { RotatedResizeBlogContent } from './RotatedResizeBlogContent'
 
 /**
  * 블로그 ID와 컴포넌트 매핑
@@ -9,6 +10,7 @@ import { RotationBlogContent } from './RotationBlogContent'
 export const BLOG_CONTENT_MAP: Record<string, React.ComponentType> = {
   'polygon-shapes': PolygonBlogContent,
   'rotation-angle-calculation': RotationBlogContent,
+  'rotated-shape-resize': RotatedResizeBlogContent,
 }
 
 /**
