@@ -10,6 +10,10 @@ const featuresSidebarData: SidebarSection[] = [
     ],
   },
   {
+    title: 'Editor',
+    items: [{ title: 'Basic Editor', href: '/features/editor/basic' }],
+  },
+  {
     title: 'Recent Features',
     items: [
       {

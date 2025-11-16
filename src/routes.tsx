@@ -9,6 +9,7 @@ import FeaturesLayout from './views/features/layout'
 import DndBasicPage from './views/features/dnd/basic/page'
 import DndResizePage from './views/features/dnd/resize/page'
 import DndRotatePage from './views/features/dnd/rotate/page'
+import EditorBasicPage from './views/features/editor/basic/page'
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
           {
             path: 'dnd/rotate',
             element: <DndRotatePage />,
+          },
+          {
+            path: 'editor/basic',
+            element: <EditorBasicPage />,
           },
         ],
       },
