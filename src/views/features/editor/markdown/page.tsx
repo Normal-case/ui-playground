@@ -149,12 +149,19 @@ export default function EditorMarkdownPage() {
       <Modal
         isOpen={isHelpModalOpen}
         onClose={() => setIsHelpModalOpen(false)}
-        title="마크다운 사용법"
         maxWidth="2xl"
       >
+        <Modal.Header onClose={() => setIsHelpModalOpen(false)}>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            마크다운 사용법
+          </h2>
+        </Modal.Header>
+
         <div
-          className="prose prose-slate dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: parseMarkdown(DEFAULT_MARKDOWN) }}
+          className="prose prose-slate dark:prose-invert max-w-none p-8"
+          dangerouslySetInnerHTML={{
+            __html: parseMarkdown(DEFAULT_MARKDOWN),
+          }}
         />
       </Modal>
     </div>

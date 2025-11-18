@@ -1,11 +1,21 @@
-import { useEffect, useRef } from 'react'
+import { useModal } from '@/shared/hooks/useModal'
+import { cn } from '@/shared/lib/cn'
+import { Children, isValidElement } from 'react'
 
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
-  title?: string
   children: React.ReactNode
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+  className?: string
+  closeOnBackdropClick?: boolean
+}
+
+interface ModalHeaderProps {
+  children: React.ReactNode
+  onClose?: () => void
+  className?: string
+  showCloseButton?: boolean
 }
 
 const maxWidthClasses = {
@@ -14,99 +24,123 @@ const maxWidthClasses = {
   lg: 'max-w-lg',
   xl: 'max-w-xl',
   '2xl': 'max-w-2xl',
+  full: 'max-w-full',
 }
 
 export function Modal({
   isOpen,
   onClose,
-  title,
   children,
   maxWidth = 'lg',
+  className,
+  closeOnBackdropClick = true,
 }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null)
-
-  // ESC 키로 닫기
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose()
-      }
-    }
-    window.addEventListener('keydown', handleEsc)
-    return () => window.removeEventListener('keydown', handleEsc)
-  }, [isOpen, onClose])
-
-  // 바디 스크롤 방지
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
+  const { dialogRef } = useModal({ isOpen, onClose })
 
   // 배경 클릭 시 닫기
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    if (!closeOnBackdropClick) return
+
+    // dialog 요소의 실제 컨텐츠 영역 밖을 클릭했는지 확인
+    const rect = e.currentTarget.getBoundingClientRect()
+    const isInDialog =
+      e.clientX >= rect.left &&
+      e.clientX <= rect.right &&
+      e.clientY >= rect.top &&
+      e.clientY <= rect.bottom
+
+    if (!isInDialog) {
       onClose()
     }
   }
 
-  if (!isOpen) return null
+  // Modal.Header가 있는지 확인하고 children 분리
+  const childArray = Children.toArray(children)
+  const headerIndex = childArray.findIndex(
+    child =>
+      isValidElement(child) &&
+      typeof child.type === 'function' &&
+      child.type === Modal.Header
+  )
+
+  const hasHeader = headerIndex !== -1
+  const header = hasHeader ? childArray[headerIndex] : null
+  const content = hasHeader
+    ? childArray.filter((_, i) => i !== headerIndex)
+    : children
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+    <dialog
+      ref={dialogRef}
       onClick={handleBackdropClick}
+      className="backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+      style={{
+        padding: 0,
+        margin: 'auto',
+        border: 'none',
+        background: 'transparent',
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+      }}
     >
       <div
-        ref={modalRef}
-        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-white dark:bg-slate-900 rounded-lg shadow-xl max-h-[90vh] flex flex-col`}
-      >
-        {/* 헤더 */}
-        {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-              {title}
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              aria-label="닫기"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+        className={cn(
+          'relative bg-white dark:bg-slate-900 rounded-lg shadow-xl max-h-[90vh] mx-4',
+          hasHeader ? 'flex flex-col overflow-hidden' : 'overflow-y-auto',
+          maxWidthClasses[maxWidth],
+          className
         )}
-
-        {/* 컨텐츠 */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">{children}</div>
-
-        {/* 푸터 (선택사항) */}
-        <div className="flex justify-end gap-2 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-          >
-            닫기
-          </button>
-        </div>
+        onClick={e => e.stopPropagation()}
+      >
+        {hasHeader ? (
+          <>
+            {header}
+            <div className="flex-1 overflow-y-auto">{content}</div>
+          </>
+        ) : (
+          children
+        )}
       </div>
+    </dialog>
+  )
+}
+
+// Compound Component - Header만 제공
+Modal.Header = function ModalHeader({
+  children,
+  onClose,
+  className,
+  showCloseButton = true,
+}: ModalHeaderProps) {
+  return (
+    <div
+      className={cn(
+        'flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex-shrink-0 bg-white dark:bg-slate-900',
+        className
+      )}
+    >
+      <div className="flex-1">{children}</div>
+      {showCloseButton && onClose && (
+        <button
+          onClick={onClose}
+          className="p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ml-4"
+          aria-label="닫기"
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      )}
     </div>
   )
 }
