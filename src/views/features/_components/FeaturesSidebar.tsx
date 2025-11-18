@@ -12,7 +12,7 @@ const featuresSidebarData: SidebarSection[] = [
   {
     title: 'Editor',
     items: [
-      { title: 'Markdown Editor', href: '/features/editor/basic' },
+      { title: 'Markdown Editor', href: '/features/editor/markdown' },
       { title: 'HTML Editor', href: '/features/editor/html' },
     ],
   },

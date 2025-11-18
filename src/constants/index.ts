@@ -14,3 +14,6 @@ export const ROUTES = {
   FEATURES: '/features',
   BLOGS: '/blogs',
 } as const
+
+// 마크다운 관련 상수
+export { MARKDOWN_PATTERNS, MARKDOWN_HTML_TEMPLATES } from './markdown'
