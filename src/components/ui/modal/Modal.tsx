@@ -73,15 +73,7 @@ export function Modal({
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
-      className="backdrop:bg-black/50 backdrop:backdrop-blur-sm"
-      style={{
-        padding: 0,
-        margin: 'auto',
-        border: 'none',
-        background: 'transparent',
-        maxWidth: '100vw',
-        maxHeight: '100vh',
-      }}
+      className="backdrop:bg-black/50 backdrop:backdrop-blur-sm p-0 m-auto border-none bg-transparent max-w-screen max-h-screen"
     >
       <div
         className={cn(
