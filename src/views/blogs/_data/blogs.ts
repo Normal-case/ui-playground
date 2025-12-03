@@ -6,6 +6,19 @@ import type { Blog } from '@/types/blog'
  */
 export const BLOGS: Blog[] = [
   {
+    id: 'react-fast-refresh',
+    title: 'React Fast Refresh',
+    content: '', // 컴포넌트로 렌더링되므로 비워둠
+    excerpt:
+      'React Fast Refresh의 동작 원리를 깊이 파헤치고, 언제 state가 보존되고 언제 초기화되는지 알아봅니다. Fiber 트리, Signature 추적, 그리고 왜 하나의 파일에 하나의 컴포넌트만 있어야 하는지를 다룹니다.',
+    author: {
+      name: '여찬복',
+    },
+    createdAt: '2024-12-03',
+    updatedAt: '2024-12-03',
+    tags: ['React', 'Fast Refresh', 'HMR', 'Frontend', 'Developer Experience'],
+  },
+  {
     id: 'rotated-shape-resize',
     title: '회전된 도형 리사이즈하기',
     content: '', // 컴포넌트로 렌더링되므로 비워둠
