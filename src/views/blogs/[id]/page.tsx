@@ -70,12 +70,6 @@ export default function BlogDetailPage() {
           {/* Meta */}
           <Flex gap="4" align="center" mb="4">
             <Text size="2" color="gray">
-              작성자: {blog.author.name}
-            </Text>
-            <Text size="2" color="gray">
-              •
-            </Text>
-            <Text size="2" color="gray">
               {formatDate(blog.createdAt)}
             </Text>
           </Flex>

@@ -3,10 +3,6 @@ export interface Blog {
   title: string
   content: string
   excerpt: string
-  author: {
-    name: string
-    avatar?: string
-  }
   createdAt: string
   updatedAt: string
   tags: string[]

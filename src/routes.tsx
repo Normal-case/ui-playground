@@ -11,6 +11,7 @@ import DndResizePage from './views/features/dnd/resize/page'
 import DndRotatePage from './views/features/dnd/rotate/page'
 import EditorMarkdownPage from './views/features/editor/markdown/page'
 import EditorHtmlPage from './views/features/editor/html/page'
+import FormBasicPage from './views/features/form/basic/page'
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
           {
             path: 'editor/html',
             element: <EditorHtmlPage />,
+          },
+          {
+            path: 'form/basic',
+            element: <FormBasicPage />,
           },
         ],
       },

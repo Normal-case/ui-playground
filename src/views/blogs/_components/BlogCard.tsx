@@ -43,9 +43,6 @@ export function BlogCard({ blog }: BlogCardProps) {
           {/* Meta */}
           <Flex justify="between" align="center">
             <Text size="2" color="gray">
-              {blog.author.name}
-            </Text>
-            <Text size="2" color="gray">
               {formatRelativeTime(blog.createdAt)}
             </Text>
           </Flex>

@@ -17,21 +17,8 @@ const featuresSidebarData: SidebarSection[] = [
     ],
   },
   {
-    title: 'Recent Features',
-    items: [
-      {
-        title: 'Advanced Theme Toggle',
-        href: '/features/advanced-theme-toggle',
-      },
-      {
-        title: 'Responsive Sidebar',
-        href: '/features/responsive-sidebar',
-      },
-      {
-        title: 'Card Hover Effects',
-        href: '/features/card-hover-effects',
-      },
-    ],
+    title: 'Form',
+    items: [{ title: 'Basic Form', href: '/features/form/basic' }],
   },
 ]
 
