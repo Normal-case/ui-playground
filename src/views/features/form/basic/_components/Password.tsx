@@ -31,11 +31,11 @@ function Password() {
             message: '최소 8자 이상 입력해주세요',
           },
           pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-            message: '영문 대소문자와 숫자를 포함해야 합니다',
+            value: /^(?=.*[a-zA-Z])(?=.*\d)/,
+            message: '영문과 숫자를 포함해야 합니다',
           },
         })}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800"
         placeholder="••••••••"
       />
       {errors.password?.message && (

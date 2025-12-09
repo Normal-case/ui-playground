@@ -42,17 +42,6 @@ function Gender() {
           />
           여성
         </label>
-        <label className="flex items-center">
-          <input
-            type="radio"
-            value="other"
-            {...register('gender', {
-              required: '성별을 선택해주세요',
-            })}
-            className="mr-2"
-          />
-          기타
-        </label>
       </div>
       {errors.gender?.message && (
         <p className="mt-1 text-sm text-red-500">{errors.gender.message}</p>

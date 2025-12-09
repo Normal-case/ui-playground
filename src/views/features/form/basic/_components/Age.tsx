@@ -35,7 +35,7 @@ function Age() {
             message: '올바른 나이를 입력해주세요',
           },
         })}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800"
         placeholder="18"
       />
       {errors.age?.message && (

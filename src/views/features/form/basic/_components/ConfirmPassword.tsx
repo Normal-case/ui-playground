@@ -35,7 +35,7 @@ function ConfirmPassword() {
           validate: value =>
             value === password || '비밀번호가 일치하지 않습니다',
         })}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800"
         placeholder="••••••••"
       />
       {errors.confirmPassword?.message && (
