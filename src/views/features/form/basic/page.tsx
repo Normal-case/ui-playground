@@ -1,5 +1,5 @@
 import { useForm, FormProvider } from 'react-hook-form'
-import UserName from './_components/UserName'
+import UserName from './_components/Username'
 import Email from './_components/Email'
 import Password from './_components/Password'
 import ConfirmPassword from './_components/ConfirmPassword'
