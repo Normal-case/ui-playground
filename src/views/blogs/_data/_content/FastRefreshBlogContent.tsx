@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Box,
   Heading,
@@ -14,10 +13,6 @@ import {
  * "React Fast Refresh: 하나의 파일에 하나의 컴포넌트만" 블로그 글 컨텐츠
  */
 export function FastRefreshBlogContent() {
-  // 데모용 state
-  const [demoCount, setDemoCount] = useState(0)
-  const [demoName, setDemoName] = useState('')
-
   return (
     <Box className="space-y-8">
       {/* 서론 */}
@@ -33,70 +28,6 @@ export function FastRefreshBlogContent() {
           알아봅니다.
         </Text>
       </Box>
-
-      {/* 인터랙티브 데모 */}
-      <Card>
-        <Heading size="4" mb="3">
-          💡 먼저 체험해보기
-        </Heading>
-        <Text size="2" color="gray" mb="4">
-          아래 입력 필드에 값을 입력한 후, 브라우저 콘솔을 열고 이 파일을
-          수정해보세요!
-        </Text>
-
-        <Flex direction="column" gap="4">
-          <Box>
-            <Text size="2" weight="bold" mb="2">
-              카운터: {demoCount}
-            </Text>
-            <Flex gap="2">
-              <button
-                onClick={() => setDemoCount(c => c + 1)}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                +1
-              </button>
-              <button
-                onClick={() => setDemoCount(c => c - 1)}
-                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-              >
-                -1
-              </button>
-            </Flex>
-          </Box>
-
-          <Box>
-            <Text size="2" weight="bold" mb="2">
-              이름:
-            </Text>
-            <input
-              type="text"
-              value={demoName}
-              onChange={e => setDemoName(e.target.value)}
-              placeholder="이름을 입력하세요"
-              className="w-full px-4 py-2 border rounded"
-            />
-            <Text size="1" color="gray" mt="1">
-              현재 값: "{demoName}"
-            </Text>
-          </Box>
-
-          <Box p="3" className="bg-gray-100 dark:bg-gray-800 rounded">
-            <Text size="2" weight="bold">
-              🎯 실험 방법:
-            </Text>
-            <Text size="2" className="mt-2">
-              1. 위에서 값을 입력하세요 (예: count=5, name="홍길동")
-              <br />
-              2. 이 파일(FastRefreshBlogContent.tsx)을 열어 JSX를 수정하세요
-              <br />
-              3. 저장하면 → state가 유지됩니다! ✅
-              <br />
-              4. 이번엔 useEffect를 추가해보세요 → 여전히 유지! ✅
-            </Text>
-          </Box>
-        </Flex>
-      </Card>
 
       {/* Fast Refresh란? */}
       <Box>
@@ -231,43 +162,15 @@ export function FastRefreshBlogContent() {
           그 비밀은 바로 <strong>Fiber 트리</strong>에 있습니다.
         </Text>
 
-        <Card variant="surface" mb="4">
-          <Heading size="4" mb="2">
-            🌳 일반 트리 vs Fiber 트리
-          </Heading>
-
-          <Flex direction={{ initial: 'column', md: 'row' }} gap="4">
-            <Box className="flex-1">
-              <Heading size="3" mb="2">
-                일반 트리
-              </Heading>
-              <Flex direction="column" gap="2">
-                <Text size="2">• 부모 → 자식 (단방향)</Text>
-                <Text size="2">• 재귀로 순회</Text>
-                <Text size="2">• 중단 불가능</Text>
-                <Text size="2">• State 저장 안 함</Text>
-              </Flex>
-            </Box>
-
-            <Box className="flex-1">
-              <Heading size="3" mb="2" color="blue">
-                Fiber 트리
-              </Heading>
-              <Flex direction="column" gap="2">
-                <Text size="2">• 부모 ↔ 자식 ↔ 형제 (3방향)</Text>
-                <Text size="2">• 포인터로 순회</Text>
-                <Text size="2">• 언제든 중단 가능 ✅</Text>
-                <Text size="2">• memoizedState에 저장 ✅</Text>
-              </Flex>
-            </Box>
-          </Flex>
-        </Card>
-
         <Heading size="4" mb="3">
           📊 Fiber 노드 구조
         </Heading>
 
-        <Box p="4" mb="4" className="bg-surface-code-dark rounded-lg">
+        <Box
+          p="4"
+          mb="4"
+          className="bg-surface-code-dark rounded-lg border border-gray-300 dark:border-gray-600"
+        >
           <Code
             size="2"
             variant="ghost"
@@ -294,43 +197,6 @@ export function FastRefreshBlogContent() {
           </Code>
         </Box>
 
-        <Heading size="4" mb="3">
-          🔍 Fiber 트리 예시
-        </Heading>
-
-        <Box p="4" mb="4" className="bg-gray-50 dark:bg-gray-900 rounded-lg">
-          <Code
-            size="2"
-            variant="ghost"
-            className="whitespace-pre font-mono leading-relaxed"
-          >
-            {`function App() {
-  const form = useForm({ title: "안녕", count: 42 })
-  return (
-    <div>
-      <TitleForm control={form.control} />
-      <CounterForm control={form.control} />
-    </div>
-  )
-}
-
-Fiber 트리 구조:
-
-        App Fiber
-        type: App
-        memoizedState: {
-          baseState: { title: "안녕", count: 42 }  ← form state 저장!
-        }
-            ↓ child
-        div Fiber
-            ↓ child
-    TitleForm Fiber ──→ sibling ──→ CounterForm Fiber
-    type: TitleForm                 type: CounterForm
-    memoizedState: null             memoizedState: null
-    (props로 control 받음)          (props로 control 받음)`}
-          </Code>
-        </Box>
-
         <Callout.Root color="blue" mb="4">
           <Callout.Text>
             💡 <strong>핵심:</strong> State는{' '}
@@ -342,24 +208,78 @@ Fiber 트리 구조:
         </Callout.Root>
       </Box>
 
-      {/* State 보존 vs 초기화 */}
+      {/* Fast Refresh의 3가지 모드 */}
       <Box>
         <Heading size="5" mb="3">
-          4. State 보존 vs 초기화: 완벽 가이드
+          4. Fast Refresh의 3가지 모드
         </Heading>
 
         <Text mb="4">
-          언제 state가 유지되고 언제 초기화될까요? 다양한 시나리오를 살펴봅시다.
+          Fast Refresh는 변경 사항에 따라 3가지 모드로 동작합니다. 각 모드마다
+          state 처리 방식이 다릅니다.
         </Text>
 
-        {/* 시나리오 1: JSX만 수정 */}
+        {/* 모드 비교 표 */}
+        <Card mb="4" variant="surface">
+          <Heading size="4" mb="3">
+            📊 모드 비교
+          </Heading>
+          <Box
+            p="3"
+            className="overflow-x-auto bg-gray-50 dark:bg-gray-900 rounded"
+          >
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-300 dark:border-gray-600">
+                  <th className="text-left py-2 px-3">모드</th>
+                  <th className="text-left py-2 px-3">조건</th>
+                  <th className="text-left py-2 px-3">State 보존</th>
+                  <th className="text-left py-2 px-3">속도</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <td className="py-2 px-3">
+                    <Badge color="green">Hot Swap</Badge>
+                  </td>
+                  <td className="py-2 px-3">Signature 동일</td>
+                  <td className="py-2 px-3">✅ 완벽 보존</td>
+                  <td className="py-2 px-3">🚀 10~50ms</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <td className="py-2 px-3">
+                    <Badge color="blue">Warm Reload</Badge>
+                  </td>
+                  <td className="py-2 px-3">Signature 변경</td>
+                  <td className="py-2 px-3">⚠️ 해당 컴포넌트만 리셋</td>
+                  <td className="py-2 px-3">⚡ 50~200ms</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3">
+                    <Badge color="red">Full Reload</Badge>
+                  </td>
+                  <td className="py-2 px-3">안전하지 않은 변경</td>
+                  <td className="py-2 px-3">❌ 모든 state 초기화</td>
+                  <td className="py-2 px-3">🐌 1~5초</td>
+                </tr>
+              </tbody>
+            </table>
+          </Box>
+        </Card>
+
+        {/* 모드 1: Hot Swap */}
         <Card mb="4">
           <Badge color="green" mb="2">
-            시나리오 1
+            모드 1
           </Badge>
           <Heading size="4" mb="3">
-            ✅ JSX만 수정 → State 완벽 보존
+            🟢 Hot Swap: State 완벽 보존
           </Heading>
+
+          <Text size="2" mb="3" color="gray">
+            Signature가 동일할 때 발생합니다. Hook 구조가 변하지 않은
+            경우입니다.
+          </Text>
 
           <Box p="3" mb="3" className="bg-surface-code-dark rounded-md">
             <Code size="2" variant="ghost" className="text-code whitespace-pre">
@@ -369,41 +289,65 @@ function Counter() {
   return <button>Count: {count}</button>
 }
 
-// After - 텍스트만 변경
+// After - JSX만 수정
 function Counter() {
   const [count, setCount] = useState(0)
-  return <button>카운터: {count}</button>  // ← 변경
+  return <button className="new">카운터: {count}</button>
 }
 
-✅ count = 5 유지!`}
+✅ count = 5 유지!
+✅ 자식 컴포넌트 Fiber 재사용!
+✅ 자식의 state도 유지!`}
             </Code>
           </Box>
 
-          <Box p="3" className="bg-green-50 dark:bg-green-900/20 rounded">
+          <Box
+            p="3"
+            mb="3"
+            className="bg-green-100 dark:bg-green-900/20 rounded"
+          >
             <Text size="2" weight="bold" mb="2">
-              📋 타임라인:
+              🔄 동작 과정:
             </Text>
-            <Code size="1" className="whitespace-pre leading-relaxed">
-              {`Signature 확인: "useState" → "useState" (동일 ✅)
-Counter Fiber 찾기
-memoizedState 보존 (count = 5)
-type만 교체: OldCounter → NewCounter
-NewCounter() 실행 → useState(0) → 5 반환
-JSX 생성: <button>카운터: 5</button>
+            <Code
+              size="1"
+              variant="ghost"
+              className="whitespace-pre leading-relaxed"
+            >
+              {`
+1. Signature 확인: "useState" → "useState" (동일 ✅)
+2. Counter Fiber 노드 찾기
+3. memoizedState 보존 (count = 5)
+4. fiber.type만 교체: OldCounter → NewCounter
+5. NewCounter() 실행 → useState(0) → 5 반환
+6. React reconciliation으로 자식 비교
+7. 자식 Props 변경 없으면 재사용
 
-결과: count = 5 유지!`}
+✅ 결과: 모든 state 유지, 가장 빠름!`}
             </Code>
           </Box>
+
+          <Callout.Root color="green" mb="3">
+            <Callout.Text>
+              💡 <strong>Hot Swap이 가능한 변경:</strong> JSX 수정, 이벤트
+              핸들러 로직 변경, 조건부 렌더링, CSS 클래스명, Props 사용 방식 등
+            </Callout.Text>
+          </Callout.Root>
         </Card>
 
-        {/* 시나리오 2: Hook 추가 */}
+        {/* 모드 2: Warm Reload */}
         <Card mb="4">
           <Badge color="blue" mb="2">
-            시나리오 2
+            모드 2
           </Badge>
           <Heading size="4" mb="3">
-            ⚠️ Hook 추가 → 해당 컴포넌트만 Remount
+            🟡 Warm Reload: 해당 컴포넌트만 Remount
           </Heading>
+
+          <Text size="2" mb="3" color="gray">
+            Signature가 변경될 때 발생합니다. Hook을 추가/제거/순서 변경한
+            경우입니다.
+          </Text>
 
           <Box p="3" mb="3" className="bg-surface-code-dark rounded-md">
             <Code size="2" variant="ghost" className="text-code whitespace-pre">
@@ -416,54 +360,94 @@ function Counter() {
 // After - useEffect 추가
 function Counter() {
   const [count, setCount] = useState(0)
-  useEffect(() => {  // ← Hook 추가!
-    console.log(count)
-  }, [count])
+  useEffect(() => {
+    console.log('mounted')
+  }, [])
   return <button>{count}</button>
-}`}
+}
+
+⚠️ Counter의 count = 0으로 초기화
+✅ 하지만 부모의 state는 안전!
+❌ 자식도 모두 Remount (새로 생성)`}
             </Code>
           </Box>
 
           <Box p="3" mb="3" className="bg-blue-50 dark:bg-blue-900/20 rounded">
             <Text size="2" weight="bold" mb="2">
-              📋 타임라인:
+              🔄 동작 과정:
             </Text>
-            <Code size="1" className="whitespace-pre leading-relaxed">
-              {`Signature 확인:
-  Old: "useState"
-  New: "useState→useEffect"
-  → 변경됨!
+            <Code
+              size="1"
+              variant="ghost"
+              className="whitespace-pre leading-relaxed"
+            >
+              {`
+1. Signature 확인:
+   Old: "useState"
+   New: "useState→useEffect"
+   → 변경됨!
 
-Fast Refresh 판단: "Warm Reload 진행"
-Counter Fiber만 Remount
-부모 App Fiber는 안전!
+2. Fast Refresh 판단: "Warm Reload"
+3. Counter Fiber만 Remount
+   - useEffect cleanup 실행
+   - Counter 언마운트
+   - 자식들도 모두 언마운트
+   - Counter 새로 마운트
+   - 자식들도 새로 마운트
+   
+4. 부모 App Fiber는 안전!
 
-Counter의 로컬 state: 초기화될 수 있음
-부모의 state (form): 완벽히 유지! ✅`}
+⚠️ Counter와 자식: 초기화됨
+✅ 부모 state: 완벽히 유지!`}
             </Code>
           </Box>
 
-          <Callout.Root color="amber">
+          <Callout.Root color="amber" mb="3">
             <Callout.Text>
-              ⚠️ <strong>주의:</strong> Hook 추가 시 해당 컴포넌트는
-              Remount되지만, <strong>부모 컴포넌트의 state는 안전</strong>
-              합니다. 페이지 전체 새로고침은 일어나지 않습니다!
+              ⚠️ <strong>Warm Reload가 발생하는 변경:</strong> Hook 추가/제거,
+              Hook 순서 변경, Custom Hook 추가/제거. 중요한 state는 부모에서
+              관리하세요!
             </Callout.Text>
           </Callout.Root>
+
+          <Box p="3" className="bg-blue-50 dark:bg-blue-900/20 rounded">
+            <Text size="2" weight="bold" mb="2">
+              💡 해결 전략:
+            </Text>
+            <Code
+              size="2"
+              variant="ghost"
+              className="whitespace-pre leading-relaxed"
+            >
+              {`// 부모에서 state 관리
+function App() {
+  const form = useForm({ defaultValues: { email: "test@test.com" } })
+  return <LoginForm control={form.control} />
+}
+
+// LoginForm에 Hook 추가해도
+// form state는 App에 있으니 안전! ✅`}
+            </Code>
+          </Box>
         </Card>
 
-        {/* 시나리오 3: 여러 컴포넌트 export */}
+        {/* 모드 3: Full Reload */}
         <Card mb="4">
           <Badge color="red" mb="2">
-            시나리오 3
+            모드 3
           </Badge>
           <Heading size="4" mb="3">
-            ❌ 여러 컴포넌트 export → 모두 리셋
+            🔴 Full Reload: 전체 페이지 새로고침
           </Heading>
+
+          <Text size="2" mb="3" color="gray">
+            React 컴포넌트가 아닌 것도 export하거나, 안전하지 않은 변경을 할 때
+            발생합니다.
+          </Text>
 
           <Box p="3" mb="3" className="bg-surface-code-dark rounded-md">
             <Code size="2" variant="ghost" className="text-code whitespace-pre">
-              {`// ❌ 나쁜 예: 한 파일에 여러 컴포넌트
+              {`// ❌ 예시 1: 한 파일에 여러 컴포넌트
 export function Counter() {
   const [count, setCount] = useState(0)  // count = 5
   return <button>{count}</button>
@@ -474,120 +458,119 @@ export function Timer() {
   return <span>{time}</span>
 }
 
-// Counter만 수정해도...
-// 파일 전체가 재평가됨!
-// → Counter도 리셋 (count = 0)
-// → Timer도 리셋 (time = 0)`}
+// ❌ 예시 2: 상수도 함께 export
+export const MAX_COUNT = 100
+export function Counter() { ... }
+
+// ❌ 예시 3: 최상위 Side Effect
+console.log('파일 로드됨')
+export function Counter() { ... }
+
+// 결과: location.reload() 실행
+// → 모든 state 초기화 (count = 0, time = 0)`}
             </Code>
           </Box>
 
-          <Box p="3" className="bg-red-50 dark:bg-red-900/20 rounded">
+          <Box p="3" mb="3" className="bg-red-50 dark:bg-red-900/20 rounded">
             <Text size="2" weight="bold" mb="2">
-              🔴 문제점:
+              🔴 Full Reload가 발생하는 경우:
             </Text>
             <Flex direction="column" gap="2">
-              <Text size="2">1. 파일 저장 시 모든 export가 재평가됨</Text>
-              <Text size="2">2. $RefreshReg$(Counter, "Counter")</Text>
-              <Text size="2">
-                3. $RefreshReg$(Timer, "Timer") ← Timer도 같이 호출!
-              </Text>
-              <Text size="2">4. 두 컴포넌트 모두 새 버전으로 간주됨</Text>
-              <Text size="2">5. 모든 state 초기화 ❌</Text>
+              <Text size="2">1. 한 파일에 여러 컴포넌트 export</Text>
+              <Text size="2">2. 컴포넌트와 상수/함수 함께 export</Text>
+              <Text size="2">3. 클래스 컴포넌트</Text>
+              <Text size="2">4. HOC가 반환하는 컴포넌트</Text>
+              <Text size="2">5. 최상위에서 Side Effect 실행</Text>
+              <Text size="2">6. React 컴포넌트가 아닌 것만 export</Text>
             </Flex>
           </Box>
+
+          <Callout.Root color="red" mb="3">
+            <Callout.Text>
+              🚨 <strong>Full Reload는 개발 경험을 크게 저하시킵니다.</strong>{' '}
+              모든 state가 초기화되고, 네트워크 요청이 재실행되며, 가장
+              느립니다. 반드시 피해야 합니다!
+            </Callout.Text>
+          </Callout.Root>
+
+          <Box p="3" className="bg-green-50 dark:bg-green-900/20 rounded">
+            <Text size="2" weight="bold" mb="2">
+              ✅ 올바른 패턴:
+            </Text>
+            <Code
+              size="2"
+              variant="ghost"
+              className="whitespace-pre leading-relaxed"
+            >
+              {`
+// constants.ts (별도 파일)
+export const MAX_COUNT = 100
+
+// Counter.tsx (컴포넌트만)
+import { MAX_COUNT } from './constants'
+export default function Counter() { ... }
+
+// Timer.tsx (컴포넌트만)
+export default function Timer() { ... }
+
+// 이제 Counter 수정 시
+// → Counter.tsx만 Hot Swap
+// → Timer는 영향 없음 ✅`}
+            </Code>
+          </Box>
         </Card>
-      </Box>
 
-      {/* 실전 예제 */}
-      <Box>
-        <Heading size="5" mb="3">
-          5. 실전 예제: Form 개발
-        </Heading>
+        {/* 실전 비교 */}
+        <Card variant="surface">
+          <Heading size="4" mb="3">
+            🎯 실전 비교: 폼 개발 시나리오
+          </Heading>
 
-        <Text mb="3">
-          실무에서 자주 마주치는 상황입니다. React Hook Form을 사용하는 폼을
-          개발하는 중입니다.
-        </Text>
+          <Flex direction="column" gap="3">
+            <Box>
+              <Badge color="green" mb="1" mr="2">
+                Hot Swap
+              </Badge>
+              <Text size="2" mb="1">
+                LoginForm의 버튼 텍스트를 "Login" → "로그인"으로 수정
+              </Text>
+              <Text size="1" color="gray" ml="2">
+                ✅ 입력한 이메일/비밀번호 그대로 유지
+              </Text>
+            </Box>
 
-        <Box p="4" mb="4" className="bg-surface-code-dark rounded-lg">
-          <Code size="2" variant="ghost" className="text-code whitespace-pre">
-            {`function MyForm() {
-  const form = useForm({
-    defaultValues: {
-      title: '',
-      count: 0
-    }
-  })
-  
-  return (
-    <div>
-      <TitleForm control={form.control} name="title" />
-      <CounterForm control={form.control} name="count" />
-    </div>
-  )
-}
+            <Box>
+              <Badge color="blue" mb="1" mr="2">
+                Warm Reload
+              </Badge>
+              <Text size="2" mb="1">
+                LoginForm에 디버깅용 useEffect 추가
+              </Text>
+              <Text size="1" color="gray" ml="2">
+                ⚠️ LoginForm 초기화되지만, 부모의 form state는 유지 (부모가
+                관리하는 경우)
+              </Text>
+            </Box>
 
-// 사용자 입력:
-// title = "안녕하세요"
-// count = 42`}
-          </Code>
-        </Box>
-
-        <Heading size="4" mb="3">
-          🧪 테스트 케이스
-        </Heading>
-
-        <Flex direction="column" gap="3">
-          <Card>
-            <Heading size="3" mb="2" color="green">
-              Case 1: CounterForm JSX 수정
-            </Heading>
-            <Code size="2" className="mb-2">
-              label 추가
-            </Code>
-            <Text size="2" color="green">
-              ✅ title = "안녕하세요" 유지
-              <br />✅ count = 42 유지
-            </Text>
-          </Card>
-
-          <Card>
-            <Heading size="3" mb="2" color="blue">
-              Case 2: CounterForm에 useEffect 추가
-            </Heading>
-            <Code size="2" className="mb-2">
-              useEffect(() =&gt; console.log('mount'), [])
-            </Code>
-            <Text size="2" color="blue">
-              ✅ title = "안녕하세요" 유지 (부모 state)
-              <br />
-              ✅ count = 42 유지 (부모 state)
-              <br />
-              ⚠️ CounterForm만 Remount
-            </Text>
-          </Card>
-
-          <Card>
-            <Heading size="3" mb="2" color="red">
-              Case 3: 한 파일에 TitleForm + CounterForm
-            </Heading>
-            <Code size="2" className="mb-2">
-              Forms.tsx에 두 컴포넌트 모두 export
-            </Code>
-            <Text size="2" color="red">
-              ❌ title 초기화
-              <br />
-              ❌ count 초기화
-              <br />❌ 둘 다 리셋됨!
-            </Text>
-          </Card>
-        </Flex>
+            <Box>
+              <Badge color="red" mb="1" mr="2">
+                Full Reload
+              </Badge>
+              <Text size="2" mb="1">
+                Forms.tsx에 LoginForm과 SignupForm을 함께 export
+              </Text>
+              <Text size="1" color="gray" ml="2">
+                ❌ 모든 폼의 입력값 초기화, 전체 페이지 새로고침
+              </Text>
+            </Box>
+          </Flex>
+        </Card>
       </Box>
 
       {/* Signature 추적 */}
       <Box>
         <Heading size="5" mb="3">
-          6. Signature: 컴포넌트의 지문
+          5. Signature: 컴포넌트의 지문
         </Heading>
 
         <Text mb="3">
@@ -647,7 +630,7 @@ $RefreshReg$(MyComponent, "MyComponent")`}
       {/* 하나의 파일에 하나의 컴포넌트 */}
       <Box>
         <Heading size="5" mb="3">
-          7. 왜 하나의 파일에 하나의 컴포넌트인가?
+          6. 왜 하나의 파일에 하나의 컴포넌트인가?
         </Heading>
 
         <Text mb="4">
@@ -727,7 +710,7 @@ export function Form() { ... }
       {/* 번들러별 차이 */}
       <Box>
         <Heading size="5" mb="3">
-          8. 번들러별 차이점
+          7. 번들러별 차이점
         </Heading>
 
         <Text mb="4">
@@ -777,7 +760,7 @@ export function Form() { ... }
       {/* 디버깅 팁 */}
       <Box>
         <Heading size="5" mb="3">
-          9. Fast Refresh 디버깅 팁
+          8. Fast Refresh 디버깅 팁
         </Heading>
 
         <Flex direction="column" gap="3">
@@ -853,7 +836,7 @@ export function Form() { ... }
               <Text weight="bold" mb="1">
                 1. Fast Refresh는 파일 단위로 동작
               </Text>
-              <Text size="2" color="gray">
+              <Text size="2" color="gray" ml="2">
                 하나의 파일에 여러 컴포넌트가 있으면 모두 영향받음
               </Text>
             </Box>
@@ -862,7 +845,7 @@ export function Form() { ... }
               <Text weight="bold" mb="1">
                 2. State는 Fiber 트리의 memoizedState에 저장
               </Text>
-              <Text size="2" color="gray">
+              <Text size="2" color="gray" ml="2">
                 컴포넌트 함수만 교체하고 state는 보존
               </Text>
             </Box>
@@ -871,7 +854,7 @@ export function Form() { ... }
               <Text weight="bold" mb="1">
                 3. Signature로 변경 감지
               </Text>
-              <Text size="2" color="gray">
+              <Text size="2" color="gray" ml="2">
                 Hook 패턴이 변경되면 Remount (부모는 안전)
               </Text>
             </Box>
@@ -880,7 +863,7 @@ export function Form() { ... }
               <Text weight="bold" mb="1">
                 4. 두 가지 모드: Hot Swap vs Warm Reload
               </Text>
-              <Text size="2" color="gray">
+              <Text size="2" color="gray" ml="2">
                 Hot Swap (완벽 보존) / Warm Reload (해당 컴포넌트만 Remount)
               </Text>
             </Box>
@@ -889,7 +872,7 @@ export function Form() { ... }
               <Text weight="bold" mb="1">
                 5. 하나의 파일 = 하나의 컴포넌트
               </Text>
-              <Text size="2" color="gray">
+              <Text size="2" color="gray" ml="2">
                 이것이 Fast Refresh를 최대한 활용하는 방법
               </Text>
             </Box>
