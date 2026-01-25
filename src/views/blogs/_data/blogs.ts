@@ -6,6 +6,16 @@ import type { Blog } from '@/types/blog'
  */
 export const BLOGS: Blog[] = [
   {
+    id: 'graphql-intro',
+    title: 'GraphQL',
+    content: '', // 컴포넌트로 렌더링되므로 비워둠
+    excerpt:
+      'GraphQL이 무엇이고 어떤 경우 사용하면 좋은지 알아봅니다. RESTful API와의 차이점을 비교하며 GraphQL의 핵심 개념과 장단점을 다룹니다.',
+    createdAt: '2026-01-22',
+    updatedAt: '2026-01-22',
+    tags: ['GraphQL', 'API', 'REST', 'Backend', 'Frontend'],
+  },
+  {
     id: 'react-fast-refresh',
     title: 'React Fast Refresh ',
     content: '', // 컴포넌트로 렌더링되므로 비워둠

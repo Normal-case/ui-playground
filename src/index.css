@@ -88,3 +88,8 @@
     @apply min-h-screen;
   }
 }
+
+/* Code block spacing - text-code 클래스를 가진 요소를 block으로 표시하여 줄바꿈 */
+.text-block {
+  @apply block;
+}
