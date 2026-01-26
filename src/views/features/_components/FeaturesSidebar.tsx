@@ -18,7 +18,10 @@ const featuresSidebarData: SidebarSection[] = [
   },
   {
     title: 'Form',
-    items: [{ title: 'Basic Form', href: '/features/form/basic' }],
+    items: [
+      { title: 'Basic Form', href: '/features/form/basic' },
+      { title: 'Safe Pad', href: '/features/form/safePad' },
+    ],
   },
 ]
 

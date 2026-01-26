@@ -14,6 +14,7 @@ export default {
         card: 'var(--card)',
         primary: 'var(--primary)',
         muted: {
+          DEFAULT: 'var(--muted)',
           foreground: 'var(--muted-foreground)',
         },
         code: {
