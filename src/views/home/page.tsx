@@ -15,9 +15,9 @@ export default function HomePage() {
             UI Playground
           </Heading>
           <Text size="5" className="max-w-2xl text-muted-foreground">
-            React + TypeScript + Vite로 만든 모던 웹 애플리케이션입니다.
+            평상시 구현해보고 싶었던 것들을 자유롭게 만들어보고,
             <br />
-            깔끔한 구조와 확장 가능한 아키텍처를 경험해보세요.
+            공부했던 내용들을 기록하며 정리하는 공간입니다!
           </Text>
         </Box>
 
@@ -28,48 +28,13 @@ export default function HomePage() {
               블로그 보기
             </Button>
           </Link>
-          <Button size="3" variant="outline">
-            GitHub
-          </Button>
+          <a href="https://github.com/Normal-case/ui-playground" target="_blank" rel="noopener noreferrer">
+            <Button size="3" variant="outline">
+              GitHub
+            </Button>
+          </a>
         </Flex>
-
-        {/* Features */}
-        <Box className="mt-12 w-full">
-          <Heading size="6" mb="6">
-            주요 기능
-          </Heading>
-          <Flex gap="4" wrap="wrap" justify="center">
-            {features.map(feature => (
-              <Box
-                key={feature.title}
-                className="flex-1 min-w-[250px] p-6 border border-border rounded-lg bg-card"
-              >
-                <Heading size="4" mb="2" className="text-card-foreground">
-                  {feature.title}
-                </Heading>
-                <Text className="text-muted-foreground">
-                  {feature.description}
-                </Text>
-              </Box>
-            ))}
-          </Flex>
-        </Box>
       </Flex>
     </Container>
   )
 }
-
-const features = [
-  {
-    title: '⚡ 빠른 개발',
-    description: 'Vite + React Fast Refresh로 즉각적인 피드백',
-  },
-  {
-    title: '🎨 모던 UI',
-    description: 'Radix UI + Tailwind CSS로 아름다운 디자인',
-  },
-  {
-    title: '📦 확장 가능',
-    description: '체계적인 구조로 쉬운 기능 추가',
-  },
-]
