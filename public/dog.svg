@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Dog Face Background -->
+  <circle cx="50" cy="50" r="45" fill="#E6C280" />
+  
+  <!-- Ears -->
+  <path d="M 25 35 Q 5 10 15 50 Z" fill="#A87F4A" />
+  <path d="M 75 35 Q 95 10 85 50 Z" fill="#A87F4A" />
+  
+  <!-- Eyes -->
+  <circle cx="35" cy="45" r="6" fill="#3E2723" />
+  <circle cx="65" cy="45" r="6" fill="#3E2723" />
+  
+  <!-- Nose/Snout area -->
+  <circle cx="50" cy="65" r="16" fill="#FFF8E7" />
+  <ellipse cx="50" cy="62" rx="8" ry="5" fill="#3E2723" />
+  
+  <!-- Mouth -->
+  <path d="M 42 70 Q 50 78 58 70" fill="none" stroke="#3E2723" stroke-width="3" stroke-linecap="round" />
+</svg>
